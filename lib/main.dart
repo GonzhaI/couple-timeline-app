@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:couple_timeline/screens/login_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,9 +15,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData.light(useMaterial3: true), // Modo claro base
       darkTheme: ThemeData.dark(useMaterial3: true), // Modo oscuro base
       themeMode: ThemeMode.system, // Se adapta al sistema
-      home: const Scaffold(
-        body: Center(child: Text('Hola, bienvenido a nuestra línea de tiempo')),
-      ),
+      home: const LoginScreen(),
     );
   }
 }
