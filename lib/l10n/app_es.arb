@@ -1,0 +1,14 @@
+{
+    "loginTitle": "Bienvenido",
+    "loginSubtitle": "Inicia sesión para conectar con tu pareja",
+    "emailLabel": "Correo electrónico",
+    "passwordLabel": "Contraseña",
+    "confirmPasswordLabel": "Confirmar contraseña",
+    "loginButton": "Iniciar Sesión",
+    "registerButton": "Registrarse",
+    "noAccountText": "¿No tienes cuenta?",
+    "registerTitle": "Crear Cuenta",
+    "registerSubtitle": "Comienza tu historia juntos",
+    "alreadyHaveAccount": "¿Ya tienes cuenta?",
+    "loginLink": "Inicia sesión aquí"
+}
