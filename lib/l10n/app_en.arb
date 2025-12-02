@@ -1,0 +1,14 @@
+{
+    "loginTitle": "Welcome",
+    "loginSubtitle": "Sign in to connect with your partner",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm password",
+    "loginButton": "Log In",
+    "registerButton": "Sign Up",
+    "noAccountText": "Don't have an account?",
+    "registerTitle": "Create Account",
+    "registerSubtitle": "Start your story together",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "Log in here"
+}

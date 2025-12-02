@@ -1,56 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
-import 'package:couple_timeline/screens/register_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  // Controllers for text fields
+class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
-  // Variable to show/hide password
+  final _confirmPasswordController = TextEditingController();
   bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     // Aux for localization
     final l10n = AppLocalizations.of(context)!;
-    // Basic scaffold for login screen
+
     return Scaffold(
+      // Transparent app bar for a clean look
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+      // Extend the body behind the app bar for a seamless look
+      extendBodyBehindAppBar: true,
       body: Center(
         child: SingleChildScrollView(
-          // Allow scrolling if needed
           padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment:
-                CrossAxisAlignment.stretch, // Stretch to full width
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // 1. Icon or Logo
+              // Icon
               const Icon(
-                Icons.favorite_rounded,
+                Icons.person_add_alt_1_rounded,
                 size: 80,
                 color: Colors.deepPurple,
               ),
               const SizedBox(height: 20),
 
-              // 2. Welcome Text
+              // Title Text
               Text(
-                l10n.loginTitle,
+                l10n.registerTitle,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 10),
+
+              // Subtitle Text
               Text(
-                l10n.loginSubtitle,
+                l10n.registerSubtitle,
                 textAlign: TextAlign.center,
                 style: Theme.of(
                   context,
@@ -58,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 40),
 
-              // 3. Email TextField
+              // Email TextField
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -66,17 +67,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   labelText: l10n.emailLabel,
                   prefixIcon: const Icon(Icons.email_outlined),
                   border: OutlineInputBorder(
-                    // Rounded border
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                 ),
               ),
               const SizedBox(height: 20),
 
-              // 4. Password TextField
+              // Password TextField
               TextField(
                 controller: _passwordController,
-                // Hide input text
                 obscureText: _obscurePassword,
                 decoration: InputDecoration(
                   labelText: l10n.passwordLabel,
@@ -94,16 +93,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   border: OutlineInputBorder(
-                    // Rounded border
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Confirm Password TextField
+              TextField(
+                controller: _confirmPasswordController,
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                  labelText: l10n.confirmPasswordLabel,
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                 ),
               ),
               const SizedBox(height: 30),
-              // 5. Login Button
+
               FilledButton(
                 onPressed: () {
-                  // TODO: Handle login logic here FIREBASE
+                  // TODO: Handle registration logic here FIREBASE
                 },
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -111,25 +123,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                 ),
-                child: Text(l10n.loginButton, style: TextStyle(fontSize: 16)),
+                child: Text(
+                  l10n.registerButton,
+                  style: const TextStyle(fontSize: 16),
+                ),
               ),
               const SizedBox(height: 20),
 
-              // 6. Sign Up
+              // Return to Login
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(l10n.noAccountText),
+                  Text(l10n.alreadyHaveAccount),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
-                        ),
-                      );
+                      Navigator.pop(context);
                     },
-                    child: Text(l10n.registerButton),
+                    child: Text(l10n.loginLink),
                   ),
                 ],
               ),
