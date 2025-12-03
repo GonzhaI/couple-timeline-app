@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -114,8 +115,69 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const SizedBox(height: 30),
 
               FilledButton(
-                onPressed: () {
-                  // TODO: Handle registration logic here FIREBASE
+                onPressed: () async {
+                  // 1. Validate inputs
+                  if (_emailController.text.isEmpty ||
+                      _passwordController.text.isEmpty ||
+                      _confirmPasswordController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(l10n.fieldUnfilledError)),
+                    );
+                    return;
+                  }
+
+                  // 2. Check if passwords match
+                  if (_passwordController.text !=
+                      _confirmPasswordController.text) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(l10n.passwordMismatchError)),
+                    );
+                    return;
+                  }
+
+                  // 3. Register user with Firebase Auth
+                  try {
+                    // Charge Indicator
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) =>
+                          const Center(child: CircularProgressIndicator()),
+                    );
+
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      email: _emailController.text.trim(),
+                      password: _passwordController.text.trim(),
+                    );
+
+                    // Close Charge Indicator
+                    Navigator.of(context).pop();
+                  } on FirebaseAuthException catch (e) {
+                    // Close Charge Indicator
+                    Navigator.of(context).pop();
+
+                    String errorMessage;
+                    switch (e.code) {
+                      case 'weak-password':
+                        errorMessage = 'The password is too weak.';
+                        break;
+                      case 'email-already-in-use':
+                        errorMessage = 'The email is already in use.';
+                        break;
+                      case 'invalid-email':
+                        errorMessage = 'The email is invalid.';
+                        break;
+                      default:
+                        errorMessage = 'An unexpected error occurred.';
+                    }
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(errorMessage),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),

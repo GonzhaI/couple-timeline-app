@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:couple_timeline/screens/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:couple_timeline/firebase_options.dart';
 
-void main() {
+void main() async {
+  // 1. Initialize Flutter
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 2. Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // 3. Run the app
   runApp(const MainApp());
 }
 

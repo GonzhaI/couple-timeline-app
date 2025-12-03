@@ -10,5 +10,8 @@
     "registerTitle": "Create Account",
     "registerSubtitle": "Start your story together",
     "alreadyHaveAccount": "Already have an account?",
-    "loginLink": "Log in here"
+    "loginLink": "Log in here",
+    "fieldUnfilledError": "Please fill in all fields",
+    "passwordMismatchError": "Passwords do not match",
+    "loginSuccessMessage": "Login successful!"
 }

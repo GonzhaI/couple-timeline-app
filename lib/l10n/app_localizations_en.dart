@@ -43,4 +43,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginLink => 'Log in here';
+
+  @override
+  String get fieldUnfilledError => 'Please fill in all fields';
+
+  @override
+  String get passwordMismatchError => 'Passwords do not match';
+
+  @override
+  String get loginSuccessMessage => 'Login successful!';
 }

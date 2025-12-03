@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "931346198538",
+    "project_id": "couple-timeline-34138",
+    "storage_bucket": "couple-timeline-34138.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931346198538:android:fc2b190aa18477022beff3",
+        "android_client_info": {
+          "package_name": "com.example.couple_timeline"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMqE2HBG0IAJYh9x6UgbKoZk90esye52s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
