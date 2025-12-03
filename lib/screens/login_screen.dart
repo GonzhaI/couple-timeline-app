@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:couple_timeline/screens/register_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -100,10 +101,60 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 30),
+
               // 5. Login Button
               FilledButton(
-                onPressed: () {
-                  // TODO: Handle login logic here FIREBASE
+                onPressed: () async {
+                  try {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) =>
+                          const Center(child: CircularProgressIndicator()),
+                    );
+
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: _emailController.text.trim(),
+                      password: _passwordController.text.trim(),
+                    );
+
+                    Navigator.of(context).pop(); // Close the loading dialog
+
+                    // TEMP: Show success message
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(l10n.loginSuccessMessage),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+
+                    // TODO: Navigate to the main app screen after successful login
+                    // for now just print to console
+                    print(
+                      'Usuario logueado: ${FirebaseAuth.instance.currentUser?.email}',
+                    );
+                  } on FirebaseAuthException catch (e) {
+                    Navigator.of(context).pop(); // Close the loading dialog
+
+                    String errorMessage;
+                    switch (e.code) {
+                      case 'user-not-found':
+                        errorMessage = 'No user found for that email.';
+                        break;
+                      case 'wrong-password':
+                        errorMessage = 'Wrong password provided.';
+                        break;
+                      default:
+                        errorMessage = 'An error occurred. Please try again.';
+                    }
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(errorMessage),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),

@@ -43,4 +43,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get loginLink => 'Inicia sesión aquí';
+
+  @override
+  String get fieldUnfilledError => 'Por favor, completa todos los campos';
+
+  @override
+  String get passwordMismatchError => 'Las contraseñas no coinciden';
+
+  @override
+  String get loginSuccessMessage => '¡Inicio de sesión exitoso!';
 }

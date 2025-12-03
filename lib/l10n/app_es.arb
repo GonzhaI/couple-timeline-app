@@ -10,5 +10,8 @@
     "registerTitle": "Crear Cuenta",
     "registerSubtitle": "Comienza tu historia juntos",
     "alreadyHaveAccount": "¿Ya tienes cuenta?",
-    "loginLink": "Inicia sesión aquí"
+    "loginLink": "Inicia sesión aquí",
+    "fieldUnfilledError": "Por favor, completa todos los campos",
+    "passwordMismatchError": "Las contraseñas no coinciden",
+    "loginSuccessMessage": "¡Inicio de sesión exitoso!"
 }

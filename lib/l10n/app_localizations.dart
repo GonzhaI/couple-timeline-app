@@ -169,6 +169,24 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Inicia sesión aquí'**
   String get loginLink;
+
+  /// No description provided for @fieldUnfilledError.
+  ///
+  /// In es, this message translates to:
+  /// **'Por favor, completa todos los campos'**
+  String get fieldUnfilledError;
+
+  /// No description provided for @passwordMismatchError.
+  ///
+  /// In es, this message translates to:
+  /// **'Las contraseñas no coinciden'**
+  String get passwordMismatchError;
+
+  /// No description provided for @loginSuccessMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Inicio de sesión exitoso!'**
+  String get loginSuccessMessage;
 }
 
 class _AppLocalizationsDelegate
