@@ -10,14 +10,16 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
   bool _obscurePassword = true;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    // Aux for localization
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -33,20 +35,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Icon
-              const Icon(
-                Icons.person_add_alt_1_rounded,
-                size: 80,
-                color: Colors.deepPurple,
-              ),
+              const Icon(Icons.person_add_alt_1_rounded, size: 80, color: Colors.deepPurple),
               const SizedBox(height: 20),
 
               // Title Text
               Text(
                 l10n.registerTitle,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
 
@@ -54,11 +50,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Text(
                 l10n.registerSubtitle,
                 textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(color: Colors.grey),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey),
               ),
               const SizedBox(height: 40),
+
+              // Name TextField
+              TextField(
+                controller: _nameController,
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecoration(
+                  labelText: l10n.nameLabel,
+                  prefixIcon: const Icon(Icons.person_outline),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                ),
+              ),
+              const SizedBox(height: 20),
 
               // Email TextField
               TextField(
@@ -67,9 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 decoration: InputDecoration(
                   labelText: l10n.emailLabel,
                   prefixIcon: const Icon(Icons.email_outlined),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                 ),
               ),
               const SizedBox(height: 20),
@@ -82,20 +86,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   labelText: l10n.passwordLabel,
                   prefixIcon: const Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                    ),
+                    icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
                     onPressed: () {
                       setState(() {
                         _obscurePassword = !_obscurePassword;
                       });
                     },
                   ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                 ),
               ),
               const SizedBox(height: 20),
@@ -107,88 +105,89 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 decoration: InputDecoration(
                   labelText: l10n.confirmPasswordLabel,
                   prefixIcon: const Icon(Icons.lock_outline),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                 ),
               ),
               const SizedBox(height: 30),
 
               FilledButton(
-                onPressed: () async {
-                  // 1. Validate inputs
-                  if (_emailController.text.isEmpty ||
-                      _passwordController.text.isEmpty ||
-                      _confirmPasswordController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.fieldUnfilledError)),
-                    );
-                    return;
-                  }
+                onPressed: _isLoading
+                    ? null
+                    : () async {
+                        // 1. Validate inputs
+                        if (_nameController.text.isEmpty ||
+                            _emailController.text.isEmpty ||
+                            _passwordController.text.isEmpty ||
+                            _confirmPasswordController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.fieldUnfilledError)));
+                          return;
+                        }
 
-                  // 2. Check if passwords match
-                  if (_passwordController.text !=
-                      _confirmPasswordController.text) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.passwordMismatchError)),
-                    );
-                    return;
-                  }
+                        // 2. Check if passwords match
+                        if (_passwordController.text != _confirmPasswordController.text) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text(l10n.passwordMismatchError)));
+                          return;
+                        }
 
-                  // 3. Register user with Firebase Auth
-                  try {
-                    // Charge Indicator
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) =>
-                          const Center(child: CircularProgressIndicator()),
-                    );
+                        setState(() {
+                          _isLoading = true;
+                        });
 
-                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: _emailController.text.trim(),
-                      password: _passwordController.text.trim(),
-                    );
+                        // 3. Register user with Firebase Auth
+                        try {
+                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                            email: _emailController.text.trim(),
+                            password: _passwordController.text.trim(),
+                          );
 
-                    // Close Charge Indicator
-                    Navigator.of(context).pop();
-                  } on FirebaseAuthException catch (e) {
-                    // Close Charge Indicator
-                    Navigator.of(context).pop();
+                          if (userCredential.user != null) {
+                            await userCredential.user!.updateDisplayName(_nameController.text.trim());
+                            await userCredential.user!.reload();
+                          }
 
-                    String errorMessage;
-                    switch (e.code) {
-                      case 'weak-password':
-                        errorMessage = 'The password is too weak.';
-                        break;
-                      case 'email-already-in-use':
-                        errorMessage = 'The email is already in use.';
-                        break;
-                      case 'invalid-email':
-                        errorMessage = 'The email is invalid.';
-                        break;
-                      default:
-                        errorMessage = 'An unexpected error occurred.';
-                    }
+                          if (mounted) {
+                            Navigator.of(context).pop();
+                          }
+                        } on FirebaseAuthException catch (e) {
+                          if (mounted) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                          }
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(errorMessage),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
+                          String errorMessage;
+                          switch (e.code) {
+                            case 'weak-password':
+                              errorMessage = l10n.weakPasswordError;
+                              break;
+                            case 'email-already-in-use':
+                              errorMessage = l10n.emailAlreadyInUseError;
+                              break;
+                            case 'invalid-email':
+                              errorMessage = l10n.invalidEmailError;
+                              break;
+                            default:
+                              errorMessage = l10n.genericLoginError;
+                          }
+
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text(errorMessage), backgroundColor: Colors.red));
+                        }
+                      },
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
                 ),
-                child: Text(
-                  l10n.registerButton,
-                  style: const TextStyle(fontSize: 16),
-                ),
+                child: _isLoading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                      )
+                    : Text(l10n.registerButton, style: const TextStyle(fontSize: 16)),
               ),
               const SizedBox(height: 20),
 

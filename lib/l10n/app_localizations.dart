@@ -187,6 +187,72 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'¡Inicio de sesión exitoso!'**
   String get loginSuccessMessage;
+
+  /// No description provided for @homeTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuestra Historia'**
+  String get homeTitle;
+
+  /// No description provided for @welcomeMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Bienvenido'**
+  String get welcomeMessage;
+
+  /// No description provided for @defaultHomeMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Aquí comenzará su historia juntos.'**
+  String get defaultHomeMessage;
+
+  /// No description provided for @userNotFoundError.
+  ///
+  /// In es, this message translates to:
+  /// **'Usuario no encontrado'**
+  String get userNotFoundError;
+
+  /// No description provided for @wrongPasswordError.
+  ///
+  /// In es, this message translates to:
+  /// **'Contraseña incorrecta'**
+  String get wrongPasswordError;
+
+  /// No description provided for @invalidEmailError.
+  ///
+  /// In es, this message translates to:
+  /// **'Correo electrónico inválido'**
+  String get invalidEmailError;
+
+  /// No description provided for @genericLoginError.
+  ///
+  /// In es, this message translates to:
+  /// **'Error al iniciar sesión. Por favor, inténtalo de nuevo.'**
+  String get genericLoginError;
+
+  /// No description provided for @weakPasswordError.
+  ///
+  /// In es, this message translates to:
+  /// **'La contraseña es demasiado débil.'**
+  String get weakPasswordError;
+
+  /// No description provided for @emailAlreadyInUseError.
+  ///
+  /// In es, this message translates to:
+  /// **'El correo electrónico ya está en uso.'**
+  String get emailAlreadyInUseError;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre completo'**
+  String get nameLabel;
+
+  /// No description provided for @nameError.
+  ///
+  /// In es, this message translates to:
+  /// **'Por favor, ingresa tu nombre completo'**
+  String get nameError;
 }
 
 class _AppLocalizationsDelegate

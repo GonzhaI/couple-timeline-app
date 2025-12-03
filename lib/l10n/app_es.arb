@@ -13,5 +13,16 @@
     "loginLink": "Inicia sesión aquí",
     "fieldUnfilledError": "Por favor, completa todos los campos",
     "passwordMismatchError": "Las contraseñas no coinciden",
-    "loginSuccessMessage": "¡Inicio de sesión exitoso!"
+    "loginSuccessMessage": "¡Inicio de sesión exitoso!",
+    "homeTitle": "Nuestra Historia",
+    "welcomeMessage": "Bienvenido",
+    "defaultHomeMessage": "Aquí comenzará su historia juntos.",
+    "userNotFoundError": "Usuario no encontrado",
+    "wrongPasswordError": "Contraseña incorrecta",
+    "invalidEmailError": "Correo electrónico inválido",
+    "genericLoginError": "Error al iniciar sesión. Por favor, inténtalo de nuevo.",
+    "weakPasswordError": "La contraseña es demasiado débil.",
+    "emailAlreadyInUseError": "El correo electrónico ya está en uso.",
+    "nameLabel": "Nombre completo",
+    "nameError": "Por favor, ingresa tu nombre completo"
 }
