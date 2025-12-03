@@ -13,5 +13,16 @@
     "loginLink": "Log in here",
     "fieldUnfilledError": "Please fill in all fields",
     "passwordMismatchError": "Passwords do not match",
-    "loginSuccessMessage": "Login successful!"
+    "loginSuccessMessage": "Login successful!",
+    "homeTitle": "Our Story",
+    "welcomeMessage": "Welcome",
+    "defaultHomeMessage": "This is where your story together will begin.",
+    "userNotFoundError": "User not found",
+    "wrongPasswordError": "Incorrect password",
+    "invalidEmailError": "Invalid email address",
+    "genericLoginError": "Error logging in. Please try again.",
+    "weakPasswordError": "The password is too weak.",
+    "emailAlreadyInUseError": "The email is already in use.",
+    "nameLabel": "Full Name",
+    "nameError": "Please enter your full name"
 }

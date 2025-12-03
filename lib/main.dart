@@ -1,7 +1,7 @@
+import 'package:couple_timeline/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
-import 'package:couple_timeline/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:couple_timeline/firebase_options.dart';
 
@@ -37,7 +37,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData.light(useMaterial3: true), // Modo claro base
       darkTheme: ThemeData.dark(useMaterial3: true), // Modo oscuro base
       themeMode: ThemeMode.system, // Se adapta al sistema
-      home: const LoginScreen(),
+      home: const AuthGate(),
     );
   }
 }

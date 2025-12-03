@@ -52,4 +52,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginSuccessMessage => 'Login successful!';
+
+  @override
+  String get homeTitle => 'Our Story';
+
+  @override
+  String get welcomeMessage => 'Welcome';
+
+  @override
+  String get defaultHomeMessage =>
+      'This is where your story together will begin.';
+
+  @override
+  String get userNotFoundError => 'User not found';
+
+  @override
+  String get wrongPasswordError => 'Incorrect password';
+
+  @override
+  String get invalidEmailError => 'Invalid email address';
+
+  @override
+  String get genericLoginError => 'Error logging in. Please try again.';
+
+  @override
+  String get weakPasswordError => 'The password is too weak.';
+
+  @override
+  String get emailAlreadyInUseError => 'The email is already in use.';
+
+  @override
+  String get nameLabel => 'Full Name';
+
+  @override
+  String get nameError => 'Please enter your full name';
 }
