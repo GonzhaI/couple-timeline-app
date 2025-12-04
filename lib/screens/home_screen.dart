@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:couple_timeline/screens/pairing_screen.dart';
+import 'package:couple_timeline/screens/add_memory_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -63,9 +64,10 @@ class HomeScreen extends StatelessWidget {
       // Floating action button to add new timeline events (to be implemented)
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Implement adding new timeline event
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddMemoryScreen()));
         },
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.deepPurple,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
