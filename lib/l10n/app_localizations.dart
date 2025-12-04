@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @loginTitle.
   ///
   /// In es, this message translates to:
-  /// **'Bienvenido'**
+  /// **'¡Bienvenido!'**
   String get loginTitle;
 
   /// No description provided for @loginSubtitle.
@@ -253,6 +253,78 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Por favor, ingresa tu nombre completo'**
   String get nameError;
+
+  /// No description provided for @homeErrorLoadingData.
+  ///
+  /// In es, this message translates to:
+  /// **'Error cargando perfil'**
+  String get homeErrorLoadingData;
+
+  /// No description provided for @homePairedMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Estás emparejado!'**
+  String get homePairedMessage;
+
+  /// No description provided for @pairingTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Conecta con tu pareja'**
+  String get pairingTitle;
+
+  /// No description provided for @pairingSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Comparte tu código o ingresa el de tu pareja para vincular las cuentas.'**
+  String get pairingSubtitle;
+
+  /// No description provided for @myCodeLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Mi Código de Invitación'**
+  String get myCodeLabel;
+
+  /// No description provided for @codeCopiedMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Código copiado al portapapeles'**
+  String get codeCopiedMessage;
+
+  /// No description provided for @enterPartnerCodeLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa el código de tu pareja'**
+  String get enterPartnerCodeLabel;
+
+  /// No description provided for @linkPartnerButton.
+  ///
+  /// In es, this message translates to:
+  /// **'Vincular Pareja'**
+  String get linkPartnerButton;
+
+  /// No description provided for @idLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'ID:'**
+  String get idLabel;
+
+  /// No description provided for @errorLinkSelf.
+  ///
+  /// In es, this message translates to:
+  /// **'No puedes vincularte contigo mismo'**
+  String get errorLinkSelf;
+
+  /// No description provided for @errorLinkAlreadyPaired.
+  ///
+  /// In es, this message translates to:
+  /// **'Este usuario ya tiene pareja'**
+  String get errorLinkAlreadyPaired;
+
+  /// No description provided for @errorLinkInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Código de invitación inválido'**
+  String get errorLinkInvalid;
 }
 
 class _AppLocalizationsDelegate

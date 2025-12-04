@@ -1,3 +1,4 @@
+import 'package:couple_timeline/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -145,6 +146,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (userCredential.user != null) {
                             await userCredential.user!.updateDisplayName(_nameController.text.trim());
                             await userCredential.user!.reload();
+
+                            // Save in Firebase Firestore
+                            await DatabaseService().saveUserData(name: _nameController.text.trim());
                           }
 
                           if (mounted) {
