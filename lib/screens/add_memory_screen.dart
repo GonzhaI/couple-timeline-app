@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:couple_timeline/services/database_service.dart';
+import 'package:couple_timeline/l10n/app_localizations.dart';
 
 class AddMemoryScreen extends StatefulWidget {
-  const AddMemoryScreen({super.key});
+  final String coupleId;
+  const AddMemoryScreen({super.key, required this.coupleId});
 
   @override
   State<AddMemoryScreen> createState() => _AddMemoryScreenState();
@@ -10,18 +13,78 @@ class AddMemoryScreen extends StatefulWidget {
 class _AddMemoryScreenState extends State<AddMemoryScreen> {
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
+  final _locationController = TextEditingController();
+
+  DateTime _selectedDate = DateTime.now();
+  bool _isLoading = false;
+
+  // Function to open date picker
+  Future<void> _pickDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
+  // Function to save memory
+  Future<void> _saveMemory() async {
+    if (_titleController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter a title for the memory.')));
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await DatabaseService().addMemory(
+        coupleId: widget.coupleId,
+        title: _titleController.text.trim(),
+        description: _descController.text.trim(),
+        date: _selectedDate,
+        location: _locationController.text.trim(),
+      );
+
+      if (mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Memory saved successfully!')));
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error saving memory: $e')));
+      }
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final dateString = '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}';
+
     return Scaffold(
       appBar: AppBar(title: const Text("New Memory"), centerTitle: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
-            // Title TextField
+            // TITLE
             TextField(
               controller: _titleController,
+              textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
                 labelText: 'Title',
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -30,7 +93,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Description TextField
+            // DESCRIPTION
             TextField(
               controller: _descController,
               maxLines: 4,
@@ -43,30 +106,48 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Date Picker
-            ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-                side: BorderSide(color: Colors.grey.shade400),
+            // DATE
+            InkWell(
+              onTap: _pickDate,
+              borderRadius: BorderRadius.circular(12.0),
+              child: InputDecorator(
+                decoration: InputDecoration(
+                  labelText: 'Date of Memory',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                  prefixIcon: const Icon(Icons.calendar_today),
+                ),
+                child: Text(dateString, style: const TextStyle(fontSize: 16)),
               ),
-              leading: const Icon(Icons.calendar_today, color: Colors.deepPurple),
-              title: const Text('Date'),
-              subtitle: Text('${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}'),
-              onTap: () {
-                // Date picker logic here
-              },
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
 
-            // Save Button
+            // LOCATION
+            TextField(
+              controller: _locationController,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                labelText: 'Location',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                prefixIcon: const Icon(Icons.location_on_outlined),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // SAVE BUTTON
             FilledButton.icon(
-              onPressed: () {
-                // Pendient Logic
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.save),
-              label: const Text('Save Memory'),
-              style: FilledButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
+              onPressed: _isLoading ? null : _saveMemory,
+              icon: _isLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                    )
+                  : const Icon(Icons.save),
+              label: Text(_isLoading ? 'Saving...' : 'Save Memory'),
+              style: FilledButton.styleFrom(
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
             ),
           ],
         ),

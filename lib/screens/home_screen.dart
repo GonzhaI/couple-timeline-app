@@ -44,30 +44,29 @@ class HomeScreen extends StatelessWidget {
           if (coupleId == null) {
             return PairingScreen(myInviteCode: inviteCode);
           } else {
-            // If paired, show couple timeline placeholder
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.favorite, size: 100, color: Colors.pink),
-                  const SizedBox(height: 20),
-                  Text(l10n.homePairedMessage, style: Theme.of(context).textTheme.headlineMedium),
-                  Text(l10n.idLabel, style: TextStyle(color: Colors.grey)),
-                  Text(coupleId, style: const TextStyle(fontWeight: FontWeight.bold)),
-                ],
+            return Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.favorite, size: 100, color: Colors.pink),
+                    const SizedBox(height: 20),
+                    Text(l10n.homePairedMessage, style: Theme.of(context).textTheme.headlineMedium),
+                    Text(l10n.idLabel, style: TextStyle(color: Colors.grey)),
+                    Text(coupleId, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              // FLOATING ACTION BUTTON
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddMemoryScreen(coupleId: coupleId)));
+                },
+                child: const Icon(Icons.add),
               ),
             );
           }
         },
-      ),
-
-      // Floating action button to add new timeline events (to be implemented)
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddMemoryScreen()));
-        },
-        backgroundColor: Colors.deepPurple,
-        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
