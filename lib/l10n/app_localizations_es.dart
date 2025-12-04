@@ -9,7 +9,7 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get loginTitle => 'Bienvenido';
+  String get loginTitle => '¡Bienvenido!';
 
   @override
   String get loginSubtitle => 'Inicia sesión para conectar con tu pareja';
@@ -86,4 +86,41 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get nameError => 'Por favor, ingresa tu nombre completo';
+
+  @override
+  String get homeErrorLoadingData => 'Error cargando perfil';
+
+  @override
+  String get homePairedMessage => '¡Estás emparejado!';
+
+  @override
+  String get pairingTitle => 'Conecta con tu pareja';
+
+  @override
+  String get pairingSubtitle =>
+      'Comparte tu código o ingresa el de tu pareja para vincular las cuentas.';
+
+  @override
+  String get myCodeLabel => 'Mi Código de Invitación';
+
+  @override
+  String get codeCopiedMessage => 'Código copiado al portapapeles';
+
+  @override
+  String get enterPartnerCodeLabel => 'Ingresa el código de tu pareja';
+
+  @override
+  String get linkPartnerButton => 'Vincular Pareja';
+
+  @override
+  String get idLabel => 'ID:';
+
+  @override
+  String get errorLinkSelf => 'No puedes vincularte contigo mismo';
+
+  @override
+  String get errorLinkAlreadyPaired => 'Este usuario ya tiene pareja';
+
+  @override
+  String get errorLinkInvalid => 'Código de invitación inválido';
 }

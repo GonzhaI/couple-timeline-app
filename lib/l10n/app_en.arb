@@ -24,5 +24,17 @@
     "weakPasswordError": "The password is too weak.",
     "emailAlreadyInUseError": "The email is already in use.",
     "nameLabel": "Full Name",
-    "nameError": "Please enter your full name"
+    "nameError": "Please enter your full name",
+    "homeErrorLoadingData": "Error loading profile",
+    "homePairedMessage": "You are paired!",
+    "pairingTitle": "Connect with your partner",
+    "pairingSubtitle": "Share your invite code or enter your partner's code to link accounts.",
+    "myCodeLabel": "My Invite Code",
+    "codeCopiedMessage": "Invite code copied to clipboard",
+    "enterPartnerCodeLabel": "Enter Partner's Invite Code",
+    "linkPartnerButton": "Link Partner",
+    "idLabel": "ID:",
+    "errorLinkSelf": "Cannot link with yourself",
+    "errorLinkAlreadyPaired": "Partner is already linked",
+    "errorLinkInvalid": "Invalid invite code"
 }

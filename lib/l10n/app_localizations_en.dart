@@ -86,4 +86,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nameError => 'Please enter your full name';
+
+  @override
+  String get homeErrorLoadingData => 'Error loading profile';
+
+  @override
+  String get homePairedMessage => 'You are paired!';
+
+  @override
+  String get pairingTitle => 'Connect with your partner';
+
+  @override
+  String get pairingSubtitle =>
+      'Share your invite code or enter your partner\'s code to link accounts.';
+
+  @override
+  String get myCodeLabel => 'My Invite Code';
+
+  @override
+  String get codeCopiedMessage => 'Invite code copied to clipboard';
+
+  @override
+  String get enterPartnerCodeLabel => 'Enter Partner\'s Invite Code';
+
+  @override
+  String get linkPartnerButton => 'Link Partner';
+
+  @override
+  String get idLabel => 'ID:';
+
+  @override
+  String get errorLinkSelf => 'Cannot link with yourself';
+
+  @override
+  String get errorLinkAlreadyPaired => 'Partner is already linked';
+
+  @override
+  String get errorLinkInvalid => 'Invalid invite code';
 }

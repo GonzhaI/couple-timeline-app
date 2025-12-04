@@ -1,15 +1,15 @@
+import 'package:couple_timeline/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:couple_timeline/screens/pairing_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Get the current user
-    final user = FirebaseAuth.instance.currentUser;
-    final String displayName = user?.displayName ?? '';
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -24,19 +24,40 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.timeline_rounded, size: 100, color: Colors.deepPurple),
-            const SizedBox(height: 20),
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: DatabaseService().getUserStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-            Text('${l10n.welcomeMessage}, ${displayName}', style: Theme.of(context).textTheme.titleLarge),
+          if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
+            return Center(child: Text(l10n.homeErrorLoadingData));
+          }
 
-            const SizedBox(height: 10),
-            Text(l10n.defaultHomeMessage, style: TextStyle(color: Colors.grey)),
-          ],
-        ),
+          final userData = snapshot.data!.data() as Map<String, dynamic>;
+          final String? coupleId = userData['coupleId'];
+          final String inviteCode = userData['inviteCode'] ?? '---';
+
+          // If not paired, show pairing screen
+          if (coupleId == null) {
+            return PairingScreen(myInviteCode: inviteCode);
+          } else {
+            // If paired, show couple timeline placeholder
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.favorite, size: 100, color: Colors.pink),
+                  const SizedBox(height: 20),
+                  Text(l10n.homePairedMessage, style: Theme.of(context).textTheme.headlineMedium),
+                  Text(l10n.idLabel, style: TextStyle(color: Colors.grey)),
+                  Text(coupleId, style: const TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            );
+          }
+        },
       ),
 
       // Floating action button to add new timeline events (to be implemented)

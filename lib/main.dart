@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('es'), Locale('en')],
+      supportedLocales: const [Locale('en'), Locale('es')],
 
       theme: ThemeData.light(useMaterial3: true), // Modo claro base
       darkTheme: ThemeData.dark(useMaterial3: true), // Modo oscuro base

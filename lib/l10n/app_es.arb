@@ -1,5 +1,5 @@
 {
-    "loginTitle": "Bienvenido",
+    "loginTitle": "¡Bienvenido!",
     "loginSubtitle": "Inicia sesión para conectar con tu pareja",
     "emailLabel": "Correo electrónico",
     "passwordLabel": "Contraseña",
@@ -24,5 +24,17 @@
     "weakPasswordError": "La contraseña es demasiado débil.",
     "emailAlreadyInUseError": "El correo electrónico ya está en uso.",
     "nameLabel": "Nombre completo",
-    "nameError": "Por favor, ingresa tu nombre completo"
+    "nameError": "Por favor, ingresa tu nombre completo",
+    "homeErrorLoadingData": "Error cargando perfil",
+    "homePairedMessage": "¡Estás emparejado!",
+    "pairingTitle": "Conecta con tu pareja",
+    "pairingSubtitle": "Comparte tu código o ingresa el de tu pareja para vincular las cuentas.",
+    "myCodeLabel": "Mi Código de Invitación",
+    "codeCopiedMessage": "Código copiado al portapapeles",
+    "enterPartnerCodeLabel": "Ingresa el código de tu pareja",
+    "linkPartnerButton": "Vincular Pareja",
+    "idLabel": "ID:",
+    "errorLinkSelf": "No puedes vincularte contigo mismo",
+    "errorLinkAlreadyPaired": "Este usuario ya tiene pareja",
+    "errorLinkInvalid": "Código de invitación inválido"
 }
