@@ -96,4 +96,28 @@ class DatabaseService {
       rethrow;
     }
   }
+
+  Future<void> addMemory({
+    required String coupleId,
+    required String title,
+    required String description,
+    required DateTime date,
+    required String location,
+  }) async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+
+    // Reference to memories collection
+    final memoriesRef = _db.collection('memories');
+
+    await memoriesRef.add({
+      'coupleId': coupleId,
+      'title': title,
+      'description': description,
+      'date': Timestamp.fromDate(date),
+      'location': location,
+      'createdBy': user.uid,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
 }
