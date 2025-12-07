@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (memorySnapshot.hasError) {
-                    return Center(child: Text("Error: ${memorySnapshot.error}"));
+                    return Center(child: Text("${l10n.errorPrefix}${memorySnapshot.error}"));
                   }
                   if (!memorySnapshot.hasData || memorySnapshot.data!.docs.isEmpty) {
                     return Center(
@@ -64,10 +64,10 @@ class HomeScreen extends StatelessWidget {
                           const Icon(Icons.history_edu, size: 80, color: Colors.grey),
                           const SizedBox(height: 20),
                           Text(
-                            "No memories yet.",
+                            l10n.noMemoriesYet,
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
                           ),
-                          const Text("Add your first memory using the + button below!"),
+                          Text(l10n.addFirstMemory),
                         ],
                       ),
                     );

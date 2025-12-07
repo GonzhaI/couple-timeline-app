@@ -123,4 +123,82 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorLinkInvalid => 'Código de invitación inválido';
+
+  @override
+  String get noMemoriesYet => 'Aún no hay recuerdos.';
+
+  @override
+  String get addFirstMemory => '¡Agrega el primero con el botón +!';
+
+  @override
+  String get errorPrefix => 'Error: ';
+
+  @override
+  String get newMemoryTitle => 'Nuevo Recuerdo';
+
+  @override
+  String get editMemoryTitle => 'Editar Recuerdo';
+
+  @override
+  String get titleLabel => 'Título';
+
+  @override
+  String get dateLabel => 'Fecha del Recuerdo';
+
+  @override
+  String get locationLabel => 'Ubicación';
+
+  @override
+  String get descriptionLabel => 'Descripción';
+
+  @override
+  String get enterTitleError => 'Por favor ingresa un título para el recuerdo.';
+
+  @override
+  String get memorySavedMsg => '¡Recuerdo guardado con éxito!';
+
+  @override
+  String get saveError => 'Error guardando recuerdo';
+
+  @override
+  String get savingButton => 'Guardando...';
+
+  @override
+  String get updateButton => 'Actualizar';
+
+  @override
+  String get saveButton => 'Guardar';
+
+  @override
+  String get deleteDialogTitle => '¿Eliminar Recuerdo?';
+
+  @override
+  String get deleteDialogContent => 'Esta acción no se puede deshacer.';
+
+  @override
+  String get cancelButton => 'Cancelar';
+
+  @override
+  String get deleteButton => 'Eliminar';
+
+  @override
+  String get memoryDeletedMsg => 'Recuerdo eliminado';
+
+  @override
+  String get editAction => 'Editar';
+
+  @override
+  String get deleteAction => 'Eliminar';
+
+  @override
+  String get noTitle => 'Sin Título';
+
+  @override
+  String get noDescription => 'Sin Descripción';
+
+  @override
+  String get noLocation => 'Sin Ubicación';
+
+  @override
+  String get appTitle => 'Couple Timeline';
 }

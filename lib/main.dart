@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Couple Timeline',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
 
       // Language and localization settings
       localizationsDelegates: const [
