@@ -120,4 +120,12 @@ class DatabaseService {
       'createdAt': FieldValue.serverTimestamp(),
     });
   }
+
+  Stream<QuerySnapshot> getMemoriesStream(String coupleId) {
+    return _db
+        .collection('memories')
+        .where('coupleId', isEqualTo: coupleId)
+        .orderBy('date', descending: true)
+        .snapshots();
+  }
 }
