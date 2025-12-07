@@ -325,6 +325,162 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Código de invitación inválido'**
   String get errorLinkInvalid;
+
+  /// No description provided for @noMemoriesYet.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no hay recuerdos.'**
+  String get noMemoriesYet;
+
+  /// No description provided for @addFirstMemory.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Agrega el primero con el botón +!'**
+  String get addFirstMemory;
+
+  /// No description provided for @errorPrefix.
+  ///
+  /// In es, this message translates to:
+  /// **'Error: '**
+  String get errorPrefix;
+
+  /// No description provided for @newMemoryTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo Recuerdo'**
+  String get newMemoryTitle;
+
+  /// No description provided for @editMemoryTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar Recuerdo'**
+  String get editMemoryTitle;
+
+  /// No description provided for @titleLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Título'**
+  String get titleLabel;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha del Recuerdo'**
+  String get dateLabel;
+
+  /// No description provided for @locationLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Ubicación'**
+  String get locationLabel;
+
+  /// No description provided for @descriptionLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Descripción'**
+  String get descriptionLabel;
+
+  /// No description provided for @enterTitleError.
+  ///
+  /// In es, this message translates to:
+  /// **'Por favor ingresa un título para el recuerdo.'**
+  String get enterTitleError;
+
+  /// No description provided for @memorySavedMsg.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Recuerdo guardado con éxito!'**
+  String get memorySavedMsg;
+
+  /// No description provided for @saveError.
+  ///
+  /// In es, this message translates to:
+  /// **'Error guardando recuerdo'**
+  String get saveError;
+
+  /// No description provided for @savingButton.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardando...'**
+  String get savingButton;
+
+  /// No description provided for @updateButton.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar'**
+  String get updateButton;
+
+  /// No description provided for @saveButton.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar'**
+  String get saveButton;
+
+  /// No description provided for @deleteDialogTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Eliminar Recuerdo?'**
+  String get deleteDialogTitle;
+
+  /// No description provided for @deleteDialogContent.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta acción no se puede deshacer.'**
+  String get deleteDialogContent;
+
+  /// No description provided for @cancelButton.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get cancelButton;
+
+  /// No description provided for @deleteButton.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar'**
+  String get deleteButton;
+
+  /// No description provided for @memoryDeletedMsg.
+  ///
+  /// In es, this message translates to:
+  /// **'Recuerdo eliminado'**
+  String get memoryDeletedMsg;
+
+  /// No description provided for @editAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar'**
+  String get editAction;
+
+  /// No description provided for @deleteAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar'**
+  String get deleteAction;
+
+  /// No description provided for @noTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin Título'**
+  String get noTitle;
+
+  /// No description provided for @noDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin Descripción'**
+  String get noDescription;
+
+  /// No description provided for @noLocation.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin Ubicación'**
+  String get noLocation;
+
+  /// No description provided for @appTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Couple Timeline'**
+  String get appTitle;
 }
 
 class _AppLocalizationsDelegate

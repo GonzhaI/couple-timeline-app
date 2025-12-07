@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/services/database_service.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddMemoryScreen extends StatefulWidget {
   final String coupleId;
@@ -57,8 +58,9 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
 
   // Function to save memory
   void _saveMemory() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_titleController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter a title for the memory.')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.enterTitleError)));
       return;
     }
 
@@ -87,25 +89,26 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
 
       if (mounted) {
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Memory saved successfully!')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.memorySavedMsg)));
       }
     } catch (e) {
       if (mounted) {
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Error saving memory: $e'), backgroundColor: Colors.red));
+        ).showSnackBar(SnackBar(content: Text('${l10n.saveError}: $e'), backgroundColor: Colors.red));
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final dateString = '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}';
     final isEditing = widget.memoryId != null;
 
     return Scaffold(
-      appBar: AppBar(title: Text(isEditing ? "Edit Memory" : "New Memory"), centerTitle: true),
+      appBar: AppBar(title: Text(isEditing ? l10n.editMemoryTitle : l10n.newMemoryTitle), centerTitle: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -115,7 +118,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
               controller: _titleController,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
-                labelText: 'Title',
+                labelText: l10n.titleLabel,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                 prefixIcon: const Icon(Icons.title),
               ),
@@ -128,7 +131,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
               borderRadius: BorderRadius.circular(12.0),
               child: InputDecorator(
                 decoration: InputDecoration(
-                  labelText: 'Date of Memory',
+                  labelText: l10n.dateLabel,
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                   prefixIcon: const Icon(Icons.calendar_today),
                 ),
@@ -142,7 +145,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
               controller: _locationController,
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
-                labelText: 'Location',
+                labelText: l10n.locationLabel,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                 prefixIcon: const Icon(Icons.location_on_outlined),
               ),
@@ -154,7 +157,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
               controller: _descController,
               maxLines: 4,
               decoration: InputDecoration(
-                labelText: 'Description',
+                labelText: l10n.descriptionLabel,
                 alignLabelWithHint: true,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
                 prefixIcon: const Icon(Icons.notes),
@@ -172,7 +175,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                     )
                   : const Icon(Icons.save),
-              label: Text(_isLoading ? 'Saving...' : (isEditing ? 'Update' : 'Save')),
+              label: Text(_isLoading ? l10n.savingButton : (isEditing ? l10n.updateButton : l10n.saveButton)),
               style: FilledButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

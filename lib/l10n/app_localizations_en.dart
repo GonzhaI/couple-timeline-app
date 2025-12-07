@@ -123,4 +123,83 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorLinkInvalid => 'Invalid invite code';
+
+  @override
+  String get noMemoriesYet => 'No memories yet.';
+
+  @override
+  String get addFirstMemory =>
+      'Add your first memory using the + button below!';
+
+  @override
+  String get errorPrefix => 'Error: ';
+
+  @override
+  String get newMemoryTitle => 'New Memory';
+
+  @override
+  String get editMemoryTitle => 'Edit Memory';
+
+  @override
+  String get titleLabel => 'Title';
+
+  @override
+  String get dateLabel => 'Date of Memory';
+
+  @override
+  String get locationLabel => 'Location';
+
+  @override
+  String get descriptionLabel => 'Description';
+
+  @override
+  String get enterTitleError => 'Please enter a title for the memory.';
+
+  @override
+  String get memorySavedMsg => 'Memory saved successfully!';
+
+  @override
+  String get saveError => 'Error saving memory';
+
+  @override
+  String get savingButton => 'Saving...';
+
+  @override
+  String get updateButton => 'Update';
+
+  @override
+  String get saveButton => 'Save';
+
+  @override
+  String get deleteDialogTitle => 'Delete Memory?';
+
+  @override
+  String get deleteDialogContent => 'This action can\'t be undone.';
+
+  @override
+  String get cancelButton => 'Cancel';
+
+  @override
+  String get deleteButton => 'Delete';
+
+  @override
+  String get memoryDeletedMsg => 'Memory Deleted';
+
+  @override
+  String get editAction => 'Edit';
+
+  @override
+  String get deleteAction => 'Delete';
+
+  @override
+  String get noTitle => 'No Title';
+
+  @override
+  String get noDescription => 'No Description';
+
+  @override
+  String get noLocation => 'No Location';
+
+  @override
+  String get appTitle => 'Couple Timeline';
 }
