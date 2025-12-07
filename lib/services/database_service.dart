@@ -10,7 +10,7 @@ class DatabaseService {
   final String _usersCollection = 'users';
   final String _couplesCollection = 'couples';
 
-  // Save or update user data
+  // Save user data
   Future<void> saveUserData({String? name}) async {
     final user = _auth.currentUser;
     if (user == null) return;
@@ -43,7 +43,7 @@ class DatabaseService {
     return String.fromCharCodes(Iterable.generate(6, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
   }
 
-  // Get user data in real time
+  // Get user data
   Stream<DocumentSnapshot> getUserStream() {
     final uid = _auth.currentUser?.uid;
     return _db.collection(_usersCollection).doc(uid).snapshots();
@@ -97,6 +97,7 @@ class DatabaseService {
     }
   }
 
+  // Add a memory
   Future<void> addMemory({
     required String coupleId,
     required String title,
@@ -110,6 +111,7 @@ class DatabaseService {
     // Reference to memories collection
     final memoriesRef = _db.collection('memories');
 
+    // Create new memory document
     await memoriesRef.add({
       'coupleId': coupleId,
       'title': title,
@@ -121,11 +123,34 @@ class DatabaseService {
     });
   }
 
+  // Get memories stream for a couple
   Stream<QuerySnapshot> getMemoriesStream(String coupleId) {
     return _db
         .collection('memories')
         .where('coupleId', isEqualTo: coupleId)
         .orderBy('date', descending: true)
         .snapshots();
+  }
+
+  // Delete a memory
+  Future<void> deleteMemory(String memoryId) async {
+    await _db.collection('memories').doc(memoryId).delete();
+  }
+
+  // Update a memory
+  Future<void> updateMemory({
+    required String memoryId,
+    required String title,
+    required String description,
+    required DateTime date,
+    required String location,
+  }) async {
+    await _db.collection('memories').doc(memoryId).update({
+      'title': title,
+      'description': description,
+      'date': Timestamp.fromDate(date),
+      'location': location,
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
   }
 }
