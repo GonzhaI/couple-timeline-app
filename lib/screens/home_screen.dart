@@ -79,8 +79,11 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     itemCount: memories.length,
                     itemBuilder: (context, index) {
-                      final memoryData = memories[index].data() as Map<String, dynamic>;
-                      return MemoryCard(data: memoryData);
+                      final memoryDoc = memories[index];
+                      final memoryData = memoryDoc.data() as Map<String, dynamic>;
+                      final String memoryId = memoryDoc.id;
+
+                      return MemoryCard(memoryId: memoryId, data: memoryData);
                     },
                   );
                 },
