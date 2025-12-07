@@ -5,6 +5,7 @@ import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:couple_timeline/screens/pairing_screen.dart';
 import 'package:couple_timeline/screens/add_memory_screen.dart';
+import 'package:couple_timeline/widgets/memory_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -44,19 +45,47 @@ class HomeScreen extends StatelessWidget {
           if (coupleId == null) {
             return PairingScreen(myInviteCode: inviteCode);
           } else {
+            // Coupled: show memories list
             return Scaffold(
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.favorite, size: 100, color: Colors.pink),
-                    const SizedBox(height: 20),
-                    Text(l10n.homePairedMessage, style: Theme.of(context).textTheme.headlineMedium),
-                    Text(l10n.idLabel, style: TextStyle(color: Colors.grey)),
-                    Text(coupleId, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  ],
-                ),
+              body: StreamBuilder<QuerySnapshot>(
+                stream: DatabaseService().getMemoriesStream(coupleId),
+                builder: (context, memorySnapshot) {
+                  if (memorySnapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (memorySnapshot.hasError) {
+                    return Center(child: Text("Error: ${memorySnapshot.error}"));
+                  }
+                  if (!memorySnapshot.hasData || memorySnapshot.data!.docs.isEmpty) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.history_edu, size: 80, color: Colors.grey),
+                          const SizedBox(height: 20),
+                          Text(
+                            "No memories yet.",
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
+                          ),
+                          const Text("Add your first memory using the + button below!"),
+                        ],
+                      ),
+                    );
+                  }
+
+                  final memories = memorySnapshot.data!.docs;
+
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(16.0),
+                    itemCount: memories.length,
+                    itemBuilder: (context, index) {
+                      final memoryData = memories[index].data() as Map<String, dynamic>;
+                      return MemoryCard(data: memoryData);
+                    },
+                  );
+                },
               ),
+
               // FLOATING ACTION BUTTON
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
