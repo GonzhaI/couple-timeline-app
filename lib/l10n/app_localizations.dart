@@ -481,6 +481,60 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Couple Timeline'**
   String get appTitle;
+
+  /// No description provided for @categoryLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Categoría'**
+  String get categoryLabel;
+
+  /// No description provided for @dateCategory.
+  ///
+  /// In es, this message translates to:
+  /// **'Cita'**
+  String get dateCategory;
+
+  /// No description provided for @travelCategory.
+  ///
+  /// In es, this message translates to:
+  /// **'Viaje'**
+  String get travelCategory;
+
+  /// No description provided for @milestoneCategory.
+  ///
+  /// In es, this message translates to:
+  /// **'Hito'**
+  String get milestoneCategory;
+
+  /// No description provided for @dailyCategory.
+  ///
+  /// In es, this message translates to:
+  /// **'Cotidiano'**
+  String get dailyCategory;
+
+  /// No description provided for @partyCategory.
+  ///
+  /// In es, this message translates to:
+  /// **'Fiesta'**
+  String get partyCategory;
+
+  /// No description provided for @daysCount.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{1 Día} other{{count} Días}} juntos'**
+  String daysCount(num count);
+
+  /// No description provided for @setStartDate.
+  ///
+  /// In es, this message translates to:
+  /// **'Fijar fecha de inicio'**
+  String get setStartDate;
+
+  /// No description provided for @editDate.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar fecha'**
+  String get editDate;
 }
 
 class _AppLocalizationsDelegate

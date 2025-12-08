@@ -104,6 +104,7 @@ class DatabaseService {
     required String description,
     required DateTime date,
     required String location,
+    required String category,
   }) async {
     final user = _auth.currentUser;
     if (user == null) return;
@@ -118,6 +119,7 @@ class DatabaseService {
       'description': description,
       'date': Timestamp.fromDate(date),
       'location': location,
+      'category': category,
       'createdBy': user.uid,
       'createdAt': FieldValue.serverTimestamp(),
     });
@@ -144,13 +146,25 @@ class DatabaseService {
     required String description,
     required DateTime date,
     required String location,
+    required String category,
   }) async {
     await _db.collection('memories').doc(memoryId).update({
       'title': title,
       'description': description,
       'date': Timestamp.fromDate(date),
       'location': location,
+      'category': category,
       'updatedAt': FieldValue.serverTimestamp(),
     });
+  }
+
+  // Update startedAt date of couple
+  Future<void> updateRelationshipStart(String coupleId, DateTime date) async {
+    await _db.collection(_couplesCollection).doc(coupleId).update({'startedAt': Timestamp.fromDate(date)});
+  }
+
+  // Get couple data stream
+  Stream<DocumentSnapshot> getCoupleStream(String coupleId) {
+    return _db.collection(_couplesCollection).doc(coupleId).snapshots();
   }
 }

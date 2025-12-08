@@ -201,4 +201,39 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get appTitle => 'Couple Timeline';
+
+  @override
+  String get categoryLabel => 'Categoría';
+
+  @override
+  String get dateCategory => 'Cita';
+
+  @override
+  String get travelCategory => 'Viaje';
+
+  @override
+  String get milestoneCategory => 'Hito';
+
+  @override
+  String get dailyCategory => 'Cotidiano';
+
+  @override
+  String get partyCategory => 'Fiesta';
+
+  @override
+  String daysCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Días',
+      one: '1 Día',
+    );
+    return '$_temp0 juntos';
+  }
+
+  @override
+  String get setStartDate => 'Fijar fecha de inicio';
+
+  @override
+  String get editDate => 'Editar fecha';
 }

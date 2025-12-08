@@ -1,4 +1,5 @@
 import 'package:couple_timeline/services/database_service.dart';
+import 'package:couple_timeline/widgets/days_counter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
@@ -6,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:couple_timeline/screens/pairing_screen.dart';
 import 'package:couple_timeline/screens/add_memory_screen.dart';
 import 'package:couple_timeline/widgets/memory_card.dart';
+import 'package:couple_timeline/widgets/days_counter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -77,9 +79,13 @@ class HomeScreen extends StatelessWidget {
 
                   return ListView.builder(
                     padding: const EdgeInsets.all(16.0),
-                    itemCount: memories.length,
+                    itemCount: memories.length + 1,
                     itemBuilder: (context, index) {
-                      final memoryDoc = memories[index];
+                      if (index == 0) {
+                        return DaysCounter(coupleId: coupleId);
+                      }
+
+                      final memoryDoc = memories[index - 1];
                       final memoryData = memoryDoc.data() as Map<String, dynamic>;
                       final String memoryId = memoryDoc.id;
 

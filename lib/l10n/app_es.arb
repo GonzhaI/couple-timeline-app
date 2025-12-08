@@ -62,5 +62,14 @@
     "noTitle": "Sin Título",
     "noDescription": "Sin Descripción",
     "noLocation": "Sin Ubicación",
-    "appTitle": "Couple Timeline"
+    "appTitle": "Couple Timeline",
+    "categoryLabel": "Categoría",
+    "dateCategory": "Cita",
+    "travelCategory": "Viaje",
+    "milestoneCategory": "Hito",
+    "dailyCategory": "Cotidiano",
+    "partyCategory": "Fiesta",
+    "daysCount": "{count, plural, =1{1 Día} other{{count} Días}} juntos",
+    "setStartDate": "Fijar fecha de inicio",
+    "editDate": "Editar fecha"
 }

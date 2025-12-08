@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:couple_timeline/services/database_service.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:couple_timeline/utils/memory_categories.dart';
 
 class AddMemoryScreen extends StatefulWidget {
   final String coupleId;
@@ -17,6 +18,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
   final _locationController = TextEditingController();
+  String _selectedCategory = 'daily';
 
   DateTime _selectedDate = DateTime.now();
   bool _isLoading = false;
@@ -29,6 +31,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
       _titleController.text = widget.initialData!['title'] ?? '';
       _descController.text = widget.initialData!['description'] ?? '';
       _locationController.text = widget.initialData!['location'] ?? '';
+      _selectedCategory = widget.initialData!['category'] ?? 'daily';
 
       if (widget.initialData!['date'] != null) {
         final timestamp = widget.initialData!['date'];
@@ -75,6 +78,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
           description: _descController.text.trim(),
           date: _selectedDate,
           location: _locationController.text.trim(),
+          category: _selectedCategory,
         );
       } else {
         // Updating existing memory
@@ -84,6 +88,7 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
           description: _descController.text.trim(),
           date: _selectedDate,
           location: _locationController.text.trim(),
+          category: _selectedCategory,
         );
       }
 
@@ -107,12 +112,59 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
     final dateString = '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}';
     final isEditing = widget.memoryId != null;
 
+    // Helper to build category dropdown items
+    String getTranslatedCategory(String key, AppLocalizations l10n) {
+      switch (key) {
+        case 'dateCategory':
+          return l10n.dateCategory;
+        case 'travelCategory':
+          return l10n.travelCategory;
+        case 'milestoneCategory':
+          return l10n.milestoneCategory;
+        case 'dailyCategory':
+          return l10n.dailyCategory;
+        case 'partyCategory':
+          return l10n.partyCategory;
+        default:
+          return key;
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text(isEditing ? l10n.editMemoryTitle : l10n.newMemoryTitle), centerTitle: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
+            // CATEGORY
+            DropdownButtonFormField<String>(
+              value: _selectedCategory,
+              decoration: InputDecoration(
+                labelText: l10n.categoryLabel,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                prefixIcon: Icon(
+                  getCategoryById(_selectedCategory).icon,
+                  color: getCategoryById(_selectedCategory).color,
+                ),
+              ),
+              items: appCategories.map((cat) {
+                return DropdownMenuItem(
+                  value: cat.id,
+                  child: Row(
+                    children: [
+                      Icon(cat.icon, color: cat.color, size: 20),
+                      const SizedBox(width: 10),
+                      Text(getTranslatedCategory(cat.labelKey, l10n)),
+                    ],
+                  ),
+                );
+              }).toList(),
+              onChanged: (val) {
+                if (val != null) setState(() => _selectedCategory = val);
+              },
+            ),
+            const SizedBox(height: 20),
+
             // TITLE
             TextField(
               controller: _titleController,

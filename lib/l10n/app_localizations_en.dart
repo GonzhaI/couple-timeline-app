@@ -202,4 +202,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appTitle => 'Couple Timeline';
+
+  @override
+  String get categoryLabel => 'Category';
+
+  @override
+  String get dateCategory => 'Date';
+
+  @override
+  String get travelCategory => 'Travel';
+
+  @override
+  String get milestoneCategory => 'Milestone';
+
+  @override
+  String get dailyCategory => 'Daily Life';
+
+  @override
+  String get partyCategory => 'Party';
+
+  @override
+  String daysCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Days',
+      one: '1 Day',
+    );
+    return '$_temp0 together';
+  }
+
+  @override
+  String get setStartDate => 'Set Start Date';
+
+  @override
+  String get editDate => 'Edit Date';
 }

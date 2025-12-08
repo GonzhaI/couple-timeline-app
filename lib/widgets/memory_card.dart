@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:couple_timeline/services/database_service.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
+import 'package:couple_timeline/utils/memory_categories.dart';
 
 class MemoryCard extends StatelessWidget {
   final String memoryId;
@@ -52,6 +53,9 @@ class MemoryCard extends StatelessWidget {
     final String description = data['description'] ?? l10n.noDescription;
     final String location = data['location'] ?? l10n.noLocation;
 
+    final String categoryId = data['category'] ?? 'daily';
+    final MemoryCategory category = getCategoryById(categoryId);
+
     DateTime date = DateTime.now();
     if (data['date'] != null) {
       date = (data['date'] as Timestamp).toDate();
@@ -64,81 +68,80 @@ class MemoryCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Icon(Icons.calendar_today, size: 14, color: Colors.grey[600]),
-                const SizedBox(width: 4),
-                Text(dateString, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-                const SizedBox(width: 10),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(color: category.color.withOpacity(0.1), shape: BoxShape.circle),
+              child: Icon(category.icon, color: category.color, size: 24),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Title
+                  Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 4),
 
-                if (location.isNotEmpty && location != l10n.noLocation) ...[
-                  Icon(Icons.location_on, size: 14, color: Colors.deepPurple[400]),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      location,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.deepPurple[400], fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ] else
-                  const Spacer(),
-
-                // Options Menu
-                PopupMenuButton<String>(
-                  icon: const Icon(Icons.more_vert, color: Colors.grey),
-                  onSelected: (value) {
-                    if (value == 'edit') {
-                      final String coupleId = data['coupleId'];
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              AddMemoryScreen(coupleId: coupleId, memoryId: memoryId, initialData: data),
+                  // Date and Location
+                  Row(
+                    children: [
+                      Text(dateString, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                      if (location.isNotEmpty && location != l10n.noLocation) ...[
+                        const SizedBox(width: 8),
+                        const Text("•", style: TextStyle(color: Colors.grey)),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            location,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: Colors.grey[600], fontSize: 12, fontStyle: FontStyle.italic),
+                          ),
                         ),
-                      );
-                    } else if (value == 'delete') {
-                      _deleteMemory(context);
-                    }
-                  },
-                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                    PopupMenuItem<String>(
-                      value: 'edit',
-                      child: Row(
-                        children: [
-                          Icon(Icons.edit, color: Colors.blue),
-                          SizedBox(width: 8),
-                          Text(l10n.editAction),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'delete',
-                      child: Row(
-                        children: [
-                          Icon(Icons.delete, color: Colors.red),
-                          SizedBox(width: 8),
-                          Text(l10n.deleteAction),
-                        ],
-                      ),
+                      ],
+                    ],
+                  ),
+
+                  // Description
+                  if (description.isNotEmpty && description != l10n.noDescription) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      description,
+                      style: const TextStyle(fontSize: 14, height: 1.4),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
+                ],
+              ),
+            ),
+
+            // Options Menu
+            PopupMenuButton<String>(
+              padding: EdgeInsets.zero,
+              icon: const Icon(Icons.more_vert, color: Colors.grey),
+              onSelected: (value) {
+                if (value == 'edit') {
+                  final String coupleId = data['coupleId'];
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddMemoryScreen(coupleId: coupleId, memoryId: memoryId, initialData: data),
+                    ),
+                  );
+                } else if (value == 'delete') {
+                  _deleteMemory(context);
+                }
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(value: 'edit', child: Text(l10n.editAction)),
+                PopupMenuItem(
+                  value: 'delete',
+                  child: Text(l10n.deleteAction, style: const TextStyle(color: Colors.red)),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-
-            // Title
-            Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-
-            // Description
-            if (description.isNotEmpty && description != l10n.noDescription) ...[
-              const SizedBox(height: 8),
-              Text(description, style: const TextStyle(fontSize: 14, height: 1.4)),
-            ],
           ],
         ),
       ),
