@@ -535,6 +535,18 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Editar fecha'**
   String get editDate;
+
+  /// No description provided for @searchPlaceholder.
+  ///
+  /// In es, this message translates to:
+  /// **'Buscar recuerdos...'**
+  String get searchPlaceholder;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos'**
+  String get filterAll;
 }
 
 class _AppLocalizationsDelegate

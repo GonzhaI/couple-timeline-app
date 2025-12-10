@@ -236,4 +236,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get editDate => 'Editar fecha';
+
+  @override
+  String get searchPlaceholder => 'Buscar recuerdos...';
+
+  @override
+  String get filterAll => 'Todos';
 }

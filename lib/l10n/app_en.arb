@@ -71,5 +71,7 @@
     "partyCategory": "Party",
     "daysCount": "{count, plural, =1{1 Day} other{{count} Days}} together",
     "setStartDate": "Set Start Date",
-    "editDate": "Edit Date"
+    "editDate": "Edit Date",
+    "searchPlaceholder": "Search memories...",
+    "filterAll": "All"
 }
