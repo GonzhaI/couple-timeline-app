@@ -71,5 +71,7 @@
     "partyCategory": "Fiesta",
     "daysCount": "{count, plural, =1{1 Día} other{{count} Días}} juntos",
     "setStartDate": "Fijar fecha de inicio",
-    "editDate": "Editar fecha"
+    "editDate": "Editar fecha",
+    "searchPlaceholder": "Buscar recuerdos...",
+    "filterAll": "Todos"
 }

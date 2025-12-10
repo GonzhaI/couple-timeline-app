@@ -237,4 +237,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editDate => 'Edit Date';
+
+  @override
+  String get searchPlaceholder => 'Search memories...';
+
+  @override
+  String get filterAll => 'All';
 }

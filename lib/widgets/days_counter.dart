@@ -44,23 +44,34 @@ class DaysCounter extends StatelessWidget {
         final startDate = startTimestamp.toDate();
         final days = DateTime.now().difference(startDate).inDays;
 
-        return GestureDetector(
-          onLongPress: () => _pickDate(context, startDate),
+        return InkWell(
+          onTap: () => _pickDate(context, startDate),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             alignment: Alignment.center,
             child: Column(
               children: [
                 Text(
                   days.toString(),
                   style: TextStyle(
-                    fontSize: 60,
+                    fontSize: 70,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
                     height: 1,
                   ),
                 ),
-                Text(l10n.daysCount(days), style: Theme.of(context).textTheme.titleMedium),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.daysCount(days),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
+                    ),
+                    const SizedBox(width: 8),
+                    Icon(Icons.edit_calendar, size: 16, color: Colors.grey[400]),
+                  ],
+                ),
               ],
             ),
           ),
