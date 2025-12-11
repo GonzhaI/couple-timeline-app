@@ -521,8 +521,8 @@ abstract class AppLocalizations {
   /// No description provided for @daysCount.
   ///
   /// In es, this message translates to:
-  /// **'{count, plural, =1{1 Día} other{{count} Días}} juntos'**
-  String daysCount(num count);
+  /// **'Días juntos'**
+  String get daysCount;
 
   /// No description provided for @setStartDate.
   ///
