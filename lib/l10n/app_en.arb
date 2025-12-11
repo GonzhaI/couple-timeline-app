@@ -73,5 +73,6 @@
     "setStartDate": "Set Start Date",
     "editDate": "Edit Date",
     "searchPlaceholder": "Search memories...",
-    "filterAll": "All"
+    "filterAll": "All",
+    "connectedWith": "Connected with"
 }

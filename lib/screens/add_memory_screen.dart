@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/services/database_service.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:couple_timeline/utils/memory_categories.dart';
 
 class AddMemoryScreen extends StatefulWidget {
@@ -142,10 +141,10 @@ class _AddMemoryScreenState extends State<AddMemoryScreen> {
               decoration: InputDecoration(
                 labelText: l10n.categoryLabel,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
-                prefixIcon: Icon(
-                  getCategoryById(_selectedCategory).icon,
-                  color: getCategoryById(_selectedCategory).color,
-                ),
+                // prefixIcon: Icon(
+                //   getCategoryById(_selectedCategory).icon,
+                //   color: getCategoryById(_selectedCategory).color,
+                // ),
               ),
               items: appCategories.map((cat) {
                 return DropdownMenuItem(

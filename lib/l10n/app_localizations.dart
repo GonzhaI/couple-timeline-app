@@ -547,6 +547,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Todos'**
   String get filterAll;
+
+  /// No description provided for @connectedWith.
+  ///
+  /// In es, this message translates to:
+  /// **'Conectado con'**
+  String get connectedWith;
 }
 
 class _AppLocalizationsDelegate

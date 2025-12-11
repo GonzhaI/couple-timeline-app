@@ -234,4 +234,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get filterAll => 'Todos';
+
+  @override
+  String get connectedWith => 'Conectado con';
 }
