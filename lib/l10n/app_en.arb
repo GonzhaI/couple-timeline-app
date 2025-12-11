@@ -69,7 +69,7 @@
     "milestoneCategory": "Milestone",
     "dailyCategory": "Daily Life",
     "partyCategory": "Party",
-    "daysCount": "{count, plural, =1{1 Day} other{{count} Days}} together",
+    "daysCount": "Days together",
     "setStartDate": "Set Start Date",
     "editDate": "Edit Date",
     "searchPlaceholder": "Search memories...",

@@ -8,6 +8,7 @@ import 'package:couple_timeline/screens/pairing_screen.dart';
 import 'package:couple_timeline/screens/add_memory_screen.dart';
 import 'package:couple_timeline/widgets/memory_card.dart';
 import 'package:couple_timeline/utils/memory_categories.dart';
+import 'dart:async';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,8 +18,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // SEARCH
+  final TextEditingController _searchController = TextEditingController();
+  final Debouncer _debouncer = Debouncer(milliseconds: 500);
+
   String _searchQuery = '';
   String _selectedCategoryFilter = 'all';
+
+  @override
+  void dispose() {
+    _searchController.dispose(); // Memory leak prevention
+    super.dispose();
+  }
+
+  // CLEAR SEARCH
+  void _cleanSearch() {
+    _searchController.clear();
+    setState(() {
+      _searchQuery = '';
+    });
+    // Hide keyboard
+    FocusScope.of(context).unfocus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: StreamBuilder<DocumentSnapshot>(
         stream: DatabaseService().getUserStream(),
         builder: (context, snapshot) {
+          // Loading validations
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-
           if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
             return Center(child: Text(l10n.homeErrorLoadingData));
           }
@@ -58,10 +79,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Theme.of(context).scaffoldBackgroundColor,
                   child: Column(
                     children: [
+                      // SEARCH BAR
                       TextField(
+                        controller: _searchController,
                         decoration: InputDecoration(
                           hintText: l10n.searchPlaceholder,
                           prefixIcon: const Icon(Icons.search),
+                          // Clear button
+                          suffixIcon: _searchQuery.isNotEmpty
+                              ? IconButton(icon: const Icon(Icons.clear), onPressed: _cleanSearch)
+                              : null,
                           filled: true,
                           fillColor: Theme.of(context).cardColor,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -71,11 +98,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         onChanged: (value) {
-                          setState(() => _searchQuery = value.toLowerCase());
+                          _debouncer.run(() {
+                            setState(() {
+                              _searchQuery = value.toLowerCase();
+                            });
+                          });
                         },
                       ),
                       const SizedBox(height: 12),
-
+                      // CATEGORY FILTER CHIPS
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -108,14 +139,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-
+                // MEMORIES LIST
                 Expanded(
                   child: StreamBuilder<QuerySnapshot>(
                     stream: DatabaseService().getMemoriesStream(coupleId),
                     builder: (context, memorySnapshot) {
+                      // Loading validations
                       if (memorySnapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       }
+                      // No memories found
                       if (!memorySnapshot.hasData || memorySnapshot.data!.docs.isEmpty) {
                         if (_searchQuery.isEmpty && _selectedCategoryFilter == 'all') {
                           return Center(
@@ -222,5 +255,17 @@ class _HomeScreenState extends State<HomeScreen> {
         labelStyle: TextStyle(color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyMedium?.color),
       ),
     );
+  }
+}
+
+class Debouncer {
+  final int milliseconds;
+  Timer? _timer;
+
+  Debouncer({required this.milliseconds});
+
+  void run(VoidCallback action) {
+    _timer?.cancel();
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 }

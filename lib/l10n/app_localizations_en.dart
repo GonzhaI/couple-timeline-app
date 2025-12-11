@@ -222,15 +222,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get partyCategory => 'Party';
 
   @override
-  String daysCount(num count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count Days',
-      one: '1 Day',
-    );
-    return '$_temp0 together';
-  }
+  String get daysCount => 'Days together';
 
   @override
   String get setStartDate => 'Set Start Date';

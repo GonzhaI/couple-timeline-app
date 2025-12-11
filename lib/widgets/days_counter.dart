@@ -65,7 +65,7 @@ class DaysCounter extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      l10n.daysCount(days),
+                      l10n.daysCount,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
                     ),
                     const SizedBox(width: 8),

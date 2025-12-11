@@ -221,15 +221,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get partyCategory => 'Fiesta';
 
   @override
-  String daysCount(num count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count Días',
-      one: '1 Día',
-    );
-    return '$_temp0 juntos';
-  }
+  String get daysCount => 'Días juntos';
 
   @override
   String get setStartDate => 'Fijar fecha de inicio';
