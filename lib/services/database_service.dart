@@ -167,4 +167,35 @@ class DatabaseService {
   Stream<DocumentSnapshot> getCoupleStream(String coupleId) {
     return _db.collection(_couplesCollection).doc(coupleId).snapshots();
   }
+
+  // Get partner's name
+  Future<String?> getPartnerName(String coupleId) async {
+    final currentUser = _auth.currentUser;
+    if (currentUser == null) return null;
+
+    try {
+      // Get couple document
+      final coupleDoc = await _db.collection(_couplesCollection).doc(coupleId).get();
+      if (!coupleDoc.exists) return null;
+
+      final data = coupleDoc.data() as Map<String, dynamic>;
+
+      // Identify partner's ID
+      String partnerId;
+      if (data['userA'] == currentUser.uid) {
+        partnerId = data['userB'];
+      } else {
+        partnerId = data['userA'];
+      }
+
+      // Search for partner's name with the ID
+      final userDoc = await _db.collection(_usersCollection).doc(partnerId).get();
+      if (userDoc.exists) {
+        return userDoc.data()!['name'] as String?;
+      }
+    } catch (e) {
+      print("Error getting partner name: $e");
+    }
+    return null;
+  }
 }
