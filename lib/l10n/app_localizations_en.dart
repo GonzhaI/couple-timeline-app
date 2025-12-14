@@ -259,4 +259,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detailHistory => 'History';
+
+  @override
+  String get noMemoriesFound => 'No memories found.';
 }

@@ -81,5 +81,7 @@
     "nameUpdatedMsg": "¡Nombre actualizado correctamente!",
     "copyCodeTooltip": "Copiar Código",
     "memoryDetailsTitle": "Detalle del Recuerdo",
-    "detailHistory": "Historia"
+    "detailHistory": "Historia",
+    "noMemoriesFound": "No se encontraron recuerdos."
+
 }

@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:couple_timeline/firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   // 1. Initialize Flutter

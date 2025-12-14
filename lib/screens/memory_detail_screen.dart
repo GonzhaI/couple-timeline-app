@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:couple_timeline/screens/add_memory_screen.dart';
 import 'package:couple_timeline/services/database_service.dart';
+import 'package:couple_timeline/utils/date_formatter.dart';
 import 'package:couple_timeline/utils/memory_categories.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +60,7 @@ class MemoryDetailScreen extends StatelessWidget {
     if (data['date'] != null) {
       date = (data['date'] as Timestamp).toDate();
     }
-    final String dateString = "${date.day}/${date.month}/${date.year}";
+    final String dateString = formatFullDate(context, date);
 
     return Scaffold(
       appBar: AppBar(

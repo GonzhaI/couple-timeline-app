@@ -81,5 +81,6 @@
     "nameUpdatedMsg": "Name updated successfully!",
     "copyCodeTooltip": "Copy Code",
     "memoryDetailsTitle": "Memory Details",
-    "detailHistory": "History"
+    "detailHistory": "History",
+    "noMemoriesFound": "No memories found."
 }

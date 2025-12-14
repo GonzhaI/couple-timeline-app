@@ -5,6 +5,7 @@ import 'package:couple_timeline/services/database_service.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:couple_timeline/utils/memory_categories.dart';
 import 'package:couple_timeline/screens/memory_detail_screen.dart';
+import 'package:couple_timeline/utils/date_formatter.dart';
 
 class MemoryCard extends StatelessWidget {
   final String memoryId;
@@ -61,7 +62,7 @@ class MemoryCard extends StatelessWidget {
     if (data['date'] != null) {
       date = (data['date'] as Timestamp).toDate();
     }
-    final String dateString = "${date.day}/${date.month}/${date.year}";
+    final dateString = formatDate(context, date);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16.0),
