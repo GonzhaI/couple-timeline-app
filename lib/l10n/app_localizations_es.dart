@@ -261,4 +261,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noMemoriesFound => 'No se encontraron recuerdos.';
+
+  @override
+  String get themeLabel => 'Tema de la App';
+
+  @override
+  String get themeSystem => 'Automático (Sistema)';
+
+  @override
+  String get themeLight => 'Modo Claro';
+
+  @override
+  String get themeDark => 'Modo Oscuro';
 }

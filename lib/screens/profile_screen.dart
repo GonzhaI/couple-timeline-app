@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
+import 'package:couple_timeline/services/theme_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -207,7 +208,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 60),
+                const SizedBox(height: 20),
+
+                // Theme Selection
+                ValueListenableBuilder<ThemeMode>(
+                  valueListenable: ThemeService.themeNotifier,
+                  builder: (context, currentMode, _) {
+                    return DropdownButtonFormField<ThemeMode>(
+                      value: currentMode,
+                      decoration: InputDecoration(
+                        labelText: l10n.themeLabel,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                        prefixIcon: Icon(
+                          currentMode == ThemeMode.light
+                              ? Icons.wb_sunny
+                              : currentMode == ThemeMode.dark
+                              ? Icons.nights_stay
+                              : Icons.brightness_auto,
+                        ),
+                        filled: true,
+                        fillColor: Theme.of(context).hoverColor,
+                      ),
+                      items: [
+                        DropdownMenuItem(value: ThemeMode.system, child: Text(l10n.themeSystem)),
+                        DropdownMenuItem(value: ThemeMode.light, child: Text(l10n.themeLight)),
+                        DropdownMenuItem(value: ThemeMode.dark, child: Text(l10n.themeDark)),
+                      ],
+                      onChanged: (newMode) {
+                        if (newMode != null && newMode != currentMode) {
+                          ThemeService.setTheme(newMode);
+                        }
+                      },
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 80),
 
                 // Logout Button
                 SizedBox(

@@ -82,5 +82,9 @@
     "copyCodeTooltip": "Copy Code",
     "memoryDetailsTitle": "Memory Details",
     "detailHistory": "History",
-    "noMemoriesFound": "No memories found."
+    "noMemoriesFound": "No memories found.",
+    "themeLabel": "App Theme",
+    "themeSystem": "System Default",
+    "themeLight": "Light Mode",
+    "themeDark": "Dark Mode"
 }

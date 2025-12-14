@@ -601,6 +601,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No se encontraron recuerdos.'**
   String get noMemoriesFound;
+
+  /// No description provided for @themeLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Tema de la App'**
+  String get themeLabel;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In es, this message translates to:
+  /// **'Automático (Sistema)'**
+  String get themeSystem;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In es, this message translates to:
+  /// **'Modo Claro'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In es, this message translates to:
+  /// **'Modo Oscuro'**
+  String get themeDark;
 }
 
 class _AppLocalizationsDelegate
