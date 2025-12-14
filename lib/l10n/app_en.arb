@@ -74,5 +74,12 @@
     "editDate": "Edit Date",
     "searchPlaceholder": "Search memories...",
     "filterAll": "All",
-    "connectedWith": "Connected with"
+    "connectedWith": "Connected with",
+    "profileTitle": "Profile",
+    "editNameLabel": "Edit Name",
+    "logoutLabel": "Log Out",
+    "nameUpdatedMsg": "Name updated successfully!",
+    "copyCodeTooltip": "Copy Code",
+    "memoryDetailsTitle": "Memory Details",
+    "detailHistory": "History"
 }

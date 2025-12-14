@@ -10,6 +10,7 @@ import 'package:couple_timeline/widgets/memory_card.dart';
 import 'package:couple_timeline/utils/memory_categories.dart';
 import 'dart:async';
 import 'package:couple_timeline/widgets/partner_name.dart';
+import 'package:couple_timeline/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -85,7 +86,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             actions: [
-              IconButton(icon: const Icon(Icons.logout_rounded), onPressed: () => FirebaseAuth.instance.signOut()),
+              IconButton(
+                icon: const Icon(Icons.person_rounded),
+                onPressed: () {
+                  // Navigate to profile screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                  );
+                },
+              ),
             ],
           ),
           body: Column(
