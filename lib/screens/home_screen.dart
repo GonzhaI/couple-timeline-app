@@ -26,6 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
   String _searchQuery = '';
   String _selectedCategoryFilter = 'all';
 
+  late Stream<DocumentSnapshot> _userStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _userStream = DatabaseService().getUserStream();
+  }
+
   @override
   void dispose() {
     _searchController.dispose(); // Memory leak prevention
@@ -46,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return StreamBuilder<DocumentSnapshot>(
-      stream: DatabaseService().getUserStream(),
+      stream: _userStream,
       builder: (context, snapshot) {
         // Loading (white screen with spinner)
         if (snapshot.connectionState == ConnectionState.waiting) {

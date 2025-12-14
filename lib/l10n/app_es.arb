@@ -82,6 +82,9 @@
     "copyCodeTooltip": "Copiar Código",
     "memoryDetailsTitle": "Detalle del Recuerdo",
     "detailHistory": "Historia",
-    "noMemoriesFound": "No se encontraron recuerdos."
-
+    "noMemoriesFound": "No se encontraron recuerdos.",
+    "themeLabel": "Tema de la App",
+    "themeSystem": "Automático (Sistema)",
+    "themeLight": "Modo Claro",
+    "themeDark": "Modo Oscuro"
 }
