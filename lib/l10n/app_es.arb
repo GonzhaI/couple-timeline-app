@@ -74,5 +74,12 @@
     "editDate": "Editar fecha",
     "searchPlaceholder": "Buscar recuerdos...",
     "filterAll": "Todos",
-    "connectedWith": "Conectado con"
+    "connectedWith": "Conectado con",
+    "profileTitle": "Perfil",
+    "editNameLabel": "Editar Nombre",
+    "logoutLabel": "Cerrar Sesión",
+    "nameUpdatedMsg": "¡Nombre actualizado correctamente!",
+    "copyCodeTooltip": "Copiar Código",
+    "memoryDetailsTitle": "Detalle del Recuerdo",
+    "detailHistory": "Historia"
 }

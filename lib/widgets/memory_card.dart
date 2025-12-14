@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:couple_timeline/services/database_service.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:couple_timeline/utils/memory_categories.dart';
+import 'package:couple_timeline/screens/memory_detail_screen.dart';
 
 class MemoryCard extends StatelessWidget {
   final String memoryId;
@@ -66,83 +67,95 @@ class MemoryCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16.0),
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(color: category.color.withOpacity(0.1), shape: BoxShape.circle),
-              child: Icon(category.icon, color: category.color, size: 24),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MemoryDetailScreen(memoryId: memoryId, data: data),
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Title
-                  Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 4),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(color: category.color.withOpacity(0.1), shape: BoxShape.circle),
+                child: Icon(category.icon, color: category.color, size: 24),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Title
+                    Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 4),
 
-                  // Date and Location
-                  Row(
-                    children: [
-                      Text(dateString, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-                      if (location.isNotEmpty && location != l10n.noLocation) ...[
-                        const SizedBox(width: 8),
-                        const Text("•", style: TextStyle(color: Colors.grey)),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            location,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: Colors.grey[600], fontSize: 12, fontStyle: FontStyle.italic),
+                    // Date and Location
+                    Row(
+                      children: [
+                        Text(dateString, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                        if (location.isNotEmpty && location != l10n.noLocation) ...[
+                          const SizedBox(width: 8),
+                          const Text("•", style: TextStyle(color: Colors.grey)),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              location,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: Colors.grey[600], fontSize: 12, fontStyle: FontStyle.italic),
+                            ),
                           ),
-                        ),
+                        ],
                       ],
-                    ],
-                  ),
-
-                  // Description
-                  if (description.isNotEmpty && description != l10n.noDescription) ...[
-                    const SizedBox(height: 8),
-                    Text(
-                      description,
-                      style: const TextStyle(fontSize: 14, height: 1.4),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
                     ),
+
+                    // Description
+                    if (description.isNotEmpty && description != l10n.noDescription) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        description,
+                        style: const TextStyle(fontSize: 14, height: 1.4),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ],
+                ),
+              ),
+
+              // Options Menu
+              PopupMenuButton<String>(
+                padding: EdgeInsets.zero,
+                icon: const Icon(Icons.more_vert, color: Colors.grey),
+                onSelected: (value) {
+                  if (value == 'edit') {
+                    final String coupleId = data['coupleId'];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AddMemoryScreen(coupleId: coupleId, memoryId: memoryId, initialData: data),
+                      ),
+                    );
+                  } else if (value == 'delete') {
+                    _deleteMemory(context);
+                  }
+                },
+                itemBuilder: (context) => [
+                  PopupMenuItem(value: 'edit', child: Text(l10n.editAction)),
+                  PopupMenuItem(
+                    value: 'delete',
+                    child: Text(l10n.deleteAction, style: const TextStyle(color: Colors.red)),
+                  ),
                 ],
               ),
-            ),
-
-            // Options Menu
-            PopupMenuButton<String>(
-              padding: EdgeInsets.zero,
-              icon: const Icon(Icons.more_vert, color: Colors.grey),
-              onSelected: (value) {
-                if (value == 'edit') {
-                  final String coupleId = data['coupleId'];
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddMemoryScreen(coupleId: coupleId, memoryId: memoryId, initialData: data),
-                    ),
-                  );
-                } else if (value == 'delete') {
-                  _deleteMemory(context);
-                }
-              },
-              itemBuilder: (context) => [
-                PopupMenuItem(value: 'edit', child: Text(l10n.editAction)),
-                PopupMenuItem(
-                  value: 'delete',
-                  child: Text(l10n.deleteAction, style: const TextStyle(color: Colors.red)),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

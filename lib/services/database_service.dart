@@ -198,4 +198,16 @@ class DatabaseService {
     }
     return null;
   }
+
+  // Update user's name
+  Future<void> updateUserName(String newName) async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+
+    // Update in Firebase Auth
+    await user.updateDisplayName(newName);
+
+    // Update in Firestore
+    await _db.collection(_usersCollection).doc(user.uid).update({'name': newName});
+  }
 }

@@ -237,4 +237,25 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get connectedWith => 'Conectado con';
+
+  @override
+  String get profileTitle => 'Perfil';
+
+  @override
+  String get editNameLabel => 'Editar Nombre';
+
+  @override
+  String get logoutLabel => 'Cerrar Sesión';
+
+  @override
+  String get nameUpdatedMsg => '¡Nombre actualizado correctamente!';
+
+  @override
+  String get copyCodeTooltip => 'Copiar Código';
+
+  @override
+  String get memoryDetailsTitle => 'Detalle del Recuerdo';
+
+  @override
+  String get detailHistory => 'Historia';
 }

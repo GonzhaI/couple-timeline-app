@@ -553,6 +553,48 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Conectado con'**
   String get connectedWith;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Perfil'**
+  String get profileTitle;
+
+  /// No description provided for @editNameLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar Nombre'**
+  String get editNameLabel;
+
+  /// No description provided for @logoutLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar Sesión'**
+  String get logoutLabel;
+
+  /// No description provided for @nameUpdatedMsg.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Nombre actualizado correctamente!'**
+  String get nameUpdatedMsg;
+
+  /// No description provided for @copyCodeTooltip.
+  ///
+  /// In es, this message translates to:
+  /// **'Copiar Código'**
+  String get copyCodeTooltip;
+
+  /// No description provided for @memoryDetailsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Detalle del Recuerdo'**
+  String get memoryDetailsTitle;
+
+  /// No description provided for @detailHistory.
+  ///
+  /// In es, this message translates to:
+  /// **'Historia'**
+  String get detailHistory;
 }
 
 class _AppLocalizationsDelegate
