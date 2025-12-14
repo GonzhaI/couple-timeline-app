@@ -595,6 +595,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Historia'**
   String get detailHistory;
+
+  /// No description provided for @noMemoriesFound.
+  ///
+  /// In es, this message translates to:
+  /// **'No se encontraron recuerdos.'**
+  String get noMemoriesFound;
 }
 
 class _AppLocalizationsDelegate

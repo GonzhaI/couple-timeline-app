@@ -258,4 +258,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get detailHistory => 'Historia';
+
+  @override
+  String get noMemoriesFound => 'No se encontraron recuerdos.';
 }

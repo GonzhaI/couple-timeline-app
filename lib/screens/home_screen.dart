@@ -90,10 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: const Icon(Icons.person_rounded),
                 onPressed: () {
                   // Navigate to profile screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
                 },
               ),
             ],
@@ -201,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       } else {
-                        return const Center(child: Text("No memories found."));
+                        return Center(child: Text(l10n.noMemoriesFound));
                       }
                     }
 
