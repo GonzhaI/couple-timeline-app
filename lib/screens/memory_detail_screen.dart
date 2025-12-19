@@ -10,7 +10,11 @@ class MemoryDetailScreen extends StatelessWidget {
   final String memoryId;
   final Map<String, dynamic> data;
 
-  const MemoryDetailScreen({super.key, required this.memoryId, required this.data});
+  const MemoryDetailScreen({
+    super.key,
+    required this.memoryId,
+    required this.data,
+  });
 
   void _deleteMemory(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -21,7 +25,10 @@ class MemoryDetailScreen extends StatelessWidget {
         title: Text(l10n.deleteDialogTitle),
         content: Text(l10n.deleteDialogContent),
         actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(l10n.cancelButton)),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(l10n.cancelButton),
+          ),
           TextButton(
             onPressed: () async {
               Navigator.of(ctx).pop();
@@ -29,17 +36,25 @@ class MemoryDetailScreen extends StatelessWidget {
                 await DatabaseService().deleteMemory(memoryId);
                 if (context.mounted) {
                   Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.memoryDeletedMsg)));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.memoryDeletedMsg)),
+                  );
                 }
               } catch (e) {
                 if (context.mounted) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("${l10n.errorPrefix}$e"), backgroundColor: Colors.red));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("${l10n.errorPrefix}$e"),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                 }
               }
             },
-            child: Text(l10n.deleteButton, style: const TextStyle(color: Colors.red)),
+            child: Text(
+              l10n.deleteButton,
+              style: const TextStyle(color: Colors.red),
+            ),
           ),
         ],
       ),
@@ -74,7 +89,11 @@ class MemoryDetailScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddMemoryScreen(coupleId: coupleId, memoryId: memoryId, initialData: data),
+                  builder: (context) => AddMemoryScreen(
+                    coupleId: coupleId,
+                    memoryId: memoryId,
+                    initialData: data,
+                  ),
                 ),
               );
             },
@@ -97,13 +116,19 @@ class MemoryDetailScreen extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(color: category.color.withOpacity(0.1), shape: BoxShape.circle),
+                    decoration: BoxDecoration(
+                      color: category.color.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
                     child: Icon(category.icon, size: 60, color: category.color),
                   ),
                   const SizedBox(height: 20),
                   Text(
                     title,
-                    style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -114,38 +139,56 @@ class MemoryDetailScreen extends StatelessWidget {
             // Date and location
             Card(
               elevation: 0,
-              color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.2),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+              color: Theme.of(
+                context,
+              ).colorScheme.surfaceVariant.withOpacity(0.2),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Date
-                    Column(
+                    Row(
                       children: [
-                        const Icon(Icons.calendar_today, size: 20, color: Colors.grey),
-                        const SizedBox(height: 4),
-                        Text(dateString, style: const TextStyle(fontWeight: FontWeight.w600)),
-                      ],
-                    ),
-                    // Divider
-                    Container(height: 30, width: 1, color: Colors.grey.withOpacity(0.5)),
-                    // Location if exists
-                    Column(
-                      children: [
-                        const Icon(Icons.location_on_outlined, size: 20, color: Colors.grey),
-                        const SizedBox(height: 4),
+                        Icon(
+                          Icons.calendar_month,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(height: 8),
                         Text(
-                          location.isNotEmpty ? location : l10n.noLocation,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontStyle: location.isEmpty ? FontStyle.italic : FontStyle.normal,
-                            color: location.isEmpty ? Colors.grey : null,
-                          ),
+                          dateString,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],
                     ),
+                    // Divider
+                    const SizedBox(height: 8),
+                    // Location if exists
+                    if (location.isNotEmpty)
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          const SizedBox(height: 8),
+                          Expanded(
+                            child: Text(
+                              location,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                              overflow: TextOverflow.visible,
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
@@ -153,15 +196,22 @@ class MemoryDetailScreen extends StatelessWidget {
             const SizedBox(height: 30),
 
             // Description
-            Text(l10n.detailHistory, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(
+              l10n.detailHistory,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 10),
             Text(
               description.isNotEmpty ? description : l10n.noDescription,
               style: TextStyle(
                 fontSize: 16,
                 height: 1.6,
-                color: description.isEmpty ? Colors.grey : Theme.of(context).textTheme.bodyLarge?.color,
-                fontStyle: description.isEmpty ? FontStyle.italic : FontStyle.normal,
+                color: description.isEmpty
+                    ? Colors.grey
+                    : Theme.of(context).textTheme.bodyLarge?.color,
+                fontStyle: description.isEmpty
+                    ? FontStyle.italic
+                    : FontStyle.normal,
               ),
             ),
           ],
