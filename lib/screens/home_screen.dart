@@ -58,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         // Loading (white screen with spinner)
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
         }
 
         // Error or no data
@@ -76,7 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: Text(l10n.homeTitle),
               actions: [
-                IconButton(icon: const Icon(Icons.logout_rounded), onPressed: () => FirebaseAuth.instance.signOut()),
+                IconButton(
+                  icon: const Icon(Icons.logout_rounded),
+                  onPressed: () => FirebaseAuth.instance.signOut(),
+                ),
               ],
             ),
             body: PairingScreen(myInviteCode: inviteCode),
@@ -89,7 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
             title: Column(
               children: [
-                Text(l10n.homeTitle, style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  l10n.homeTitle,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
                 PartnerName(coupleId: coupleId),
               ],
             ),
@@ -98,7 +106,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: const Icon(Icons.person_rounded),
                 onPressed: () {
                   // Navigate to profile screen
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  );
                 },
               ),
             ],
@@ -126,12 +139,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
 
                             // If not empty, show clear button
-                            return IconButton(icon: const Icon(Icons.clear), onPressed: _cleanSearch);
+                            return IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: _cleanSearch,
+                            );
                           },
                         ),
                         filled: true,
                         fillColor: Theme.of(context).cardColor,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
@@ -161,7 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             String label = cat.id;
                             if (cat.id == 'date') label = l10n.dateCategory;
                             if (cat.id == 'travel') label = l10n.travelCategory;
-                            if (cat.id == 'milestone') label = l10n.milestoneCategory;
+                            if (cat.id == 'milestone')
+                              label = l10n.milestoneCategory;
                             if (cat.id == 'daily') label = l10n.dailyCategory;
                             if (cat.id == 'party') label = l10n.partyCategory;
 
@@ -185,46 +204,93 @@ class _HomeScreenState extends State<HomeScreen> {
                   stream: DatabaseService().getMemoriesStream(coupleId),
                   builder: (context, memorySnapshot) {
                     // Loading validations
-                    if (memorySnapshot.connectionState == ConnectionState.waiting) {
+                    if (memorySnapshot.connectionState ==
+                        ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     }
                     // No memories found
-                    if (!memorySnapshot.hasData || memorySnapshot.data!.docs.isEmpty) {
-                      if (_searchQuery.isEmpty && _selectedCategoryFilter == 'all') {
+                    if (!memorySnapshot.hasData ||
+                        memorySnapshot.data!.docs.isEmpty) {
+                      if (_searchQuery.isEmpty &&
+                          _selectedCategoryFilter == 'all') {
                         return Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.history_edu, size: 80, color: Colors.grey),
-                              const SizedBox(height: 20),
+                              Icon(
+                                Icons.auto_stories_outlined,
+                                size: 80,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.outline.withOpacity(0.5),
+                              ),
+                              const SizedBox(height: 16),
                               Text(
                                 l10n.noMemoriesYet,
-                                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
+                                style: Theme.of(context).textTheme.titleLarge
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.outline,
+                                    ),
                               ),
-                              Text(l10n.addFirstMemory),
+                              const SizedBox(height: 8),
+                              Text(
+                                l10n.addFirstMemory,
+                                style: Theme.of(context).textTheme.bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
+                              ),
                             ],
                           ),
                         );
                       } else {
-                        return Center(child: Text(l10n.noMemoriesFound));
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search_off_rounded,
+                                size: 80,
+                                color: Theme.of(context).disabledColor,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                l10n.noMemoriesFound,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.titleMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context).disabledColor,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        );
                       }
                     }
 
                     final allMemories = memorySnapshot.data!.docs;
                     final filteredMemories = allMemories.where((doc) {
                       final data = doc.data() as Map<String, dynamic>;
-                      final title = (data['title'] as String? ?? '').toLowerCase();
-                      final description = (data['description'] as String? ?? '').toLowerCase();
+                      final title = (data['title'] as String? ?? '')
+                          .toLowerCase();
+                      final description = (data['description'] as String? ?? '')
+                          .toLowerCase();
                       final category = data['category'] as String? ?? 'daily';
 
                       // Category filter
-                      if (_selectedCategoryFilter != 'all' && category != _selectedCategoryFilter) {
+                      if (_selectedCategoryFilter != 'all' &&
+                          category != _selectedCategoryFilter) {
                         return false;
                       }
 
                       // Text filter
                       if (_searchQuery.isNotEmpty) {
-                        return title.contains(_searchQuery) || description.contains(_searchQuery);
+                        return title.contains(_searchQuery) ||
+                            description.contains(_searchQuery);
                       }
 
                       return true;
@@ -235,15 +301,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: filteredMemories.length + 1,
                       itemBuilder: (context, index) {
                         if (index == 0) {
-                          return _searchQuery.isEmpty && _selectedCategoryFilter == 'all'
+                          return _searchQuery.isEmpty &&
+                                  _selectedCategoryFilter == 'all'
                               ? DaysCounter(coupleId: coupleId)
                               : const SizedBox.shrink();
                         }
 
                         final memoryDoc = filteredMemories[index - 1];
-                        final memoryData = memoryDoc.data() as Map<String, dynamic>;
+                        final memoryData =
+                            memoryDoc.data() as Map<String, dynamic>;
 
-                        return MemoryCard(memoryId: memoryDoc.id, data: memoryData);
+                        return MemoryCard(
+                          memoryId: memoryDoc.id,
+                          data: memoryData,
+                        );
                       },
                     );
                   },
@@ -254,7 +325,12 @@ class _HomeScreenState extends State<HomeScreen> {
           // Floating action button to add new memory
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AddMemoryScreen(coupleId: coupleId)));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddMemoryScreen(coupleId: coupleId),
+                ),
+              );
             },
             child: const Icon(Icons.add),
           ),
@@ -277,7 +353,11 @@ class _HomeScreenState extends State<HomeScreen> {
         label: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 16, color: isSelected ? Colors.white : (color ?? Colors.grey)),
+            Icon(
+              icon,
+              size: 16,
+              color: isSelected ? Colors.white : (color ?? Colors.grey),
+            ),
             const SizedBox(width: 6),
             Text(label),
           ],
@@ -290,7 +370,11 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         checkmarkColor: Colors.white,
         selectedColor: Theme.of(context).primaryColor,
-        labelStyle: TextStyle(color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyMedium?.color),
+        labelStyle: TextStyle(
+          color: isSelected
+              ? Colors.white
+              : Theme.of(context).textTheme.bodyMedium?.color,
+        ),
       ),
     );
   }
