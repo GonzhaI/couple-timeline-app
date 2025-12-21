@@ -1,6 +1,7 @@
 import 'package:couple_timeline/services/database_service.dart';
 import 'package:couple_timeline/widgets/days_counter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _searchController.clear();
     setState(() {
       _searchQuery = '';
+      _selectedCategoryFilter = 'all';
     });
     FocusScope.of(context).unfocus();
   }
@@ -98,10 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   l10n.homeTitle,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
+                // Show partner name
                 PartnerName(coupleId: coupleId),
               ],
             ),
             actions: [
+              // Profile Button
               IconButton(
                 icon: const Icon(Icons.person_rounded),
                 onPressed: () {
@@ -208,72 +212,52 @@ class _HomeScreenState extends State<HomeScreen> {
                         ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     }
+
+                    // Get ALL documents first
+                    final allDocs = memorySnapshot.hasData
+                        ? memorySnapshot.data!.docs
+                        : [];
+
                     // No memories found
-                    if (!memorySnapshot.hasData ||
-                        memorySnapshot.data!.docs.isEmpty) {
-                      if (_searchQuery.isEmpty &&
-                          _selectedCategoryFilter == 'all') {
-                        return Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.auto_stories_outlined,
-                                size: 80,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.outline.withOpacity(0.5),
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                l10n.noMemoriesYet,
-                                style: Theme.of(context).textTheme.titleLarge
-                                    ?.copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.outline,
-                                    ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                l10n.addFirstMemory,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.primary,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        );
-                      } else {
-                        return Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.search_off_rounded,
-                                size: 80,
-                                color: Theme.of(context).disabledColor,
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                l10n.noMemoriesFound,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.titleMedium
-                                    ?.copyWith(
-                                      color: Theme.of(context).disabledColor,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
+                    if (allDocs.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.auto_stories_outlined,
+                              size: 80,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.outline.withOpacity(0.5),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              l10n.noMemoriesYet,
+                              style: Theme.of(context).textTheme.titleLarge
+                                  ?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.outline,
+                                  ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              l10n.addFirstMemory,
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      );
                     }
 
-                    final allMemories = memorySnapshot.data!.docs;
-                    final filteredMemories = allMemories.where((doc) {
+                    // Apply filters for search and category
+                    final filteredMemories = allDocs.where((doc) {
                       final data = doc.data() as Map<String, dynamic>;
                       final title = (data['title'] as String? ?? '')
                           .toLowerCase();
@@ -296,11 +280,43 @@ class _HomeScreenState extends State<HomeScreen> {
                       return true;
                     }).toList();
 
+                    // If there is no results after filters, show "search off"
+                    if (filteredMemories.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search_off_rounded,
+                              size: 80,
+                              color: Theme.of(context).disabledColor,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              l10n.noMemoriesFound,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.titleMedium
+                                  ?.copyWith(
+                                    color: Theme.of(context).disabledColor,
+                                  ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextButton(
+                              onPressed: _cleanSearch,
+                              child: Text(l10n.cleanFilter),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                    // If there's results, show list
                     return ListView.builder(
                       padding: const EdgeInsets.all(16.0),
                       itemCount: filteredMemories.length + 1,
                       itemBuilder: (context, index) {
                         if (index == 0) {
+                          // Show counter for no active filters
                           return _searchQuery.isEmpty &&
                                   _selectedCategoryFilter == 'all'
                               ? DaysCounter(coupleId: coupleId)

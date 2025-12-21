@@ -625,6 +625,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Modo Oscuro'**
   String get themeDark;
+
+  /// No description provided for @cleanFilter.
+  ///
+  /// In es, this message translates to:
+  /// **'Limpiar filtros'**
+  String get cleanFilter;
 }
 
 class _AppLocalizationsDelegate

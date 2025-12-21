@@ -86,5 +86,6 @@
     "themeLabel": "App Theme",
     "themeSystem": "System Default",
     "themeLight": "Light Mode",
-    "themeDark": "Dark Mode"
+    "themeDark": "Dark Mode",
+    "cleanFilter": "Clean filters"
 }

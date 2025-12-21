@@ -75,7 +75,7 @@ class MemoryDetailScreen extends StatelessWidget {
     if (data['date'] != null) {
       date = (data['date'] as Timestamp).toDate();
     }
-    final String dateString = formatFullDate(context, date);
+    final String dateString = formatMediumDate(context, date);
 
     return Scaffold(
       appBar: AppBar(

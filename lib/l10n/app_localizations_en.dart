@@ -274,4 +274,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get themeDark => 'Dark Mode';
+
+  @override
+  String get cleanFilter => 'Clean filters';
 }
