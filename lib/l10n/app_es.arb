@@ -86,5 +86,6 @@
     "themeLabel": "Tema de la App",
     "themeSystem": "Automático (Sistema)",
     "themeLight": "Modo Claro",
-    "themeDark": "Modo Oscuro"
+    "themeDark": "Modo Oscuro",
+    "cleanFilter": "Limpiar filtros"
 }

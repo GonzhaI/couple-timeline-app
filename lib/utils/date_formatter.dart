@@ -11,3 +11,8 @@ String formatFullDate(BuildContext context, DateTime date) {
   final String locale = Localizations.localeOf(context).languageCode;
   return DateFormat.yMMMMEEEEd(locale).format(date);
 }
+
+String formatMediumDate(BuildContext context, DateTime date) {
+  final String locale = Localizations.localeOf(context).languageCode;
+  return DateFormat.yMMMEd(locale).format(date);
+}
