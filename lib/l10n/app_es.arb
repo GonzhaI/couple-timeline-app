@@ -87,5 +87,10 @@
     "themeSystem": "Automático (Sistema)",
     "themeLight": "Modo Claro",
     "themeDark": "Modo Oscuro",
-    "cleanFilter": "Limpiar filtros"
+    "cleanFilter": "Limpiar filtros",
+    "statsTitle": "Estadísticas",
+    "totalMemories": "Total de Recuerdos",
+    "categoryBreakdown": "Desglose por Categoría",
+    "firstMemoryDate": "Primer recuerdo guardado",
+    "mostActiveCategory": "Categoría favorita"
 }

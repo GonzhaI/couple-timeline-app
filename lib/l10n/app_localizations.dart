@@ -631,6 +631,36 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Limpiar filtros'**
   String get cleanFilter;
+
+  /// No description provided for @statsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Estadísticas'**
+  String get statsTitle;
+
+  /// No description provided for @totalMemories.
+  ///
+  /// In es, this message translates to:
+  /// **'Total de Recuerdos'**
+  String get totalMemories;
+
+  /// No description provided for @categoryBreakdown.
+  ///
+  /// In es, this message translates to:
+  /// **'Desglose por Categoría'**
+  String get categoryBreakdown;
+
+  /// No description provided for @firstMemoryDate.
+  ///
+  /// In es, this message translates to:
+  /// **'Primer recuerdo guardado'**
+  String get firstMemoryDate;
+
+  /// No description provided for @mostActiveCategory.
+  ///
+  /// In es, this message translates to:
+  /// **'Categoría favorita'**
+  String get mostActiveCategory;
 }
 
 class _AppLocalizationsDelegate

@@ -12,6 +12,7 @@ import 'package:couple_timeline/utils/memory_categories.dart';
 import 'dart:async';
 import 'package:couple_timeline/widgets/partner_name.dart';
 import 'package:couple_timeline/screens/profile_screen.dart';
+import 'package:couple_timeline/screens/stats_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -105,6 +106,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             actions: [
+              // Statistics Button
+              IconButton(
+                icon: const Icon(Icons.bar_chart_rounded),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StatsScreen(coupleId: coupleId!),
+                    ),
+                  );
+                },
+              ),
               // Profile Button
               IconButton(
                 icon: const Icon(Icons.person_rounded),
