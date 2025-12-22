@@ -87,5 +87,10 @@
     "themeSystem": "System Default",
     "themeLight": "Light Mode",
     "themeDark": "Dark Mode",
-    "cleanFilter": "Clean filters"
+    "cleanFilter": "Clean filters",
+    "statsTitle": "Stasticstics",
+    "totalMemories": "Total Memories",
+    "categoryBreakdown": "Category Breakdown",
+    "firstMemoryDate": "First memory recorded",
+    "mostActiveCategory": "Favorite category"
 }

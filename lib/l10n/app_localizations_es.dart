@@ -276,4 +276,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get cleanFilter => 'Limpiar filtros';
+
+  @override
+  String get statsTitle => 'Estadísticas';
+
+  @override
+  String get totalMemories => 'Total de Recuerdos';
+
+  @override
+  String get categoryBreakdown => 'Desglose por Categoría';
+
+  @override
+  String get firstMemoryDate => 'Primer recuerdo guardado';
+
+  @override
+  String get mostActiveCategory => 'Categoría favorita';
 }
