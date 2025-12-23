@@ -1,21 +1,16 @@
 import 'package:couple_timeline/services/database_service.dart';
 import 'package:couple_timeline/widgets/days_counter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:couple_timeline/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:couple_timeline/screens/pairing_screen.dart';
-import 'package:couple_timeline/screens/add_memory_screen.dart';
 import 'package:couple_timeline/widgets/memory_card.dart';
 import 'package:couple_timeline/utils/memory_categories.dart';
 import 'dart:async';
 import 'package:couple_timeline/widgets/partner_name.dart';
-import 'package:couple_timeline/screens/profile_screen.dart';
-import 'package:couple_timeline/screens/stats_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final bool isEmbedded;
+  const HomeScreen({super.key, this.isEmbedded = false});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -73,28 +68,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
         final userData = snapshot.data!.data() as Map<String, dynamic>;
         final String? coupleId = userData['coupleId'];
-        final String inviteCode = userData['inviteCode'] ?? '---';
 
         // If not paired, show pairing screen
         if (coupleId == null) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(l10n.homeTitle),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.logout_rounded),
-                  onPressed: () => FirebaseAuth.instance.signOut(),
-                ),
-              ],
-            ),
-            body: PairingScreen(myInviteCode: inviteCode),
-          );
+          return Center(child: Text(l10n.noCoupleId));
         }
 
         // If paired, show home screen with memories
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
+            automaticallyImplyLeading: !widget.isEmbedded,
             title: Column(
               children: [
                 Text(
@@ -105,33 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 PartnerName(coupleId: coupleId),
               ],
             ),
-            actions: [
-              // Statistics Button
-              IconButton(
-                icon: const Icon(Icons.bar_chart_rounded),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => StatsScreen(coupleId: coupleId!),
-                    ),
-                  );
-                },
-              ),
-              // Profile Button
-              IconButton(
-                icon: const Icon(Icons.person_rounded),
-                onPressed: () {
-                  // Navigate to profile screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileScreen(),
-                    ),
-                  );
-                },
-              ),
-            ],
           ),
           body: Column(
             children: [
@@ -337,12 +294,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
 
                         final memoryDoc = filteredMemories[index - 1];
-                        final memoryData =
-                            memoryDoc.data() as Map<String, dynamic>;
-
                         return MemoryCard(
                           memoryId: memoryDoc.id,
-                          data: memoryData,
+                          data: memoryDoc.data() as Map<String, dynamic>,
                         );
                       },
                     );
@@ -350,18 +304,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-          ),
-          // Floating action button to add new memory
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddMemoryScreen(coupleId: coupleId),
-                ),
-              );
-            },
-            child: const Icon(Icons.add),
           ),
         );
       },

@@ -42,34 +42,60 @@ class DaysCounter extends StatelessWidget {
         }
 
         final startDate = startTimestamp.toDate();
+        final now = DateTime.now();
         final days = DateTime.now().difference(startDate).inDays;
 
         return InkWell(
           onTap: () => _pickDate(context, startDate),
+          borderRadius: BorderRadius.circular(20),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            alignment: Alignment.center,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   days.toString(),
                   style: TextStyle(
-                    fontSize: 70,
+                    fontSize: 48,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
                     height: 1,
                   ),
                 ),
-
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      l10n.daysCount,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
+                      l10n.daysTogether,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.color?.withOpacity(0.7),
+                        letterSpacing: 1.2,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Icon(Icons.edit_calendar, size: 16, color: Colors.grey[400]),
+                    Icon(
+                      Icons.edit_calendar,
+                      size: 14,
+                      color: Theme.of(context).disabledColor,
+                    ),
                   ],
                 ),
               ],

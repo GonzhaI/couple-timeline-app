@@ -292,4 +292,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mostActiveCategory => 'Favorite category';
+
+  @override
+  String get errorLoadingUser => 'Error loading user';
+
+  @override
+  String get daysTogether => 'Days Together';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navStats => 'Stats';
+
+  @override
+  String get navProfile => 'Profile';
+
+  @override
+  String get noCoupleId => 'No couple ID found';
 }
