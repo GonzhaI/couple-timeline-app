@@ -661,6 +661,42 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Categoría favorita'**
   String get mostActiveCategory;
+
+  /// No description provided for @errorLoadingUser.
+  ///
+  /// In es, this message translates to:
+  /// **'Error cargando usuario'**
+  String get errorLoadingUser;
+
+  /// No description provided for @daysTogether.
+  ///
+  /// In es, this message translates to:
+  /// **'Días Juntos'**
+  String get daysTogether;
+
+  /// No description provided for @navHome.
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio'**
+  String get navHome;
+
+  /// No description provided for @navStats.
+  ///
+  /// In es, this message translates to:
+  /// **'Estadísticas'**
+  String get navStats;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Perfil'**
+  String get navProfile;
+
+  /// No description provided for @noCoupleId.
+  ///
+  /// In es, this message translates to:
+  /// **'ID de la pareja no encontrado'**
+  String get noCoupleId;
 }
 
 class _AppLocalizationsDelegate

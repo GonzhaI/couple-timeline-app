@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:couple_timeline/screens/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:couple_timeline/screens/login_screen.dart';
-import 'package:couple_timeline/screens/home_screen.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -19,7 +19,7 @@ class AuthGate extends StatelessWidget {
 
         // 2. User is logged in
         if (snapshot.hasData) {
-          return const HomeScreen();
+          return const MainScreen();
         }
 
         // 3. User is not logged in

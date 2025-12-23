@@ -92,5 +92,11 @@
     "totalMemories": "Total Memories",
     "categoryBreakdown": "Category Breakdown",
     "firstMemoryDate": "First memory recorded",
-    "mostActiveCategory": "Favorite category"
+    "mostActiveCategory": "Favorite category",
+    "errorLoadingUser": "Error loading user",
+    "daysTogether": "Days Together",
+  "navHome": "Home",
+  "navStats": "Stats",
+  "navProfile": "Profile",
+  "noCoupleId": "No couple ID found"
 }

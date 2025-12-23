@@ -291,4 +291,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get mostActiveCategory => 'Categoría favorita';
+
+  @override
+  String get errorLoadingUser => 'Error cargando usuario';
+
+  @override
+  String get daysTogether => 'Días Juntos';
+
+  @override
+  String get navHome => 'Inicio';
+
+  @override
+  String get navStats => 'Estadísticas';
+
+  @override
+  String get navProfile => 'Perfil';
+
+  @override
+  String get noCoupleId => 'ID de la pareja no encontrado';
 }

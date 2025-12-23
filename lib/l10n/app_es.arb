@@ -92,5 +92,11 @@
     "totalMemories": "Total de Recuerdos",
     "categoryBreakdown": "Desglose por Categoría",
     "firstMemoryDate": "Primer recuerdo guardado",
-    "mostActiveCategory": "Categoría favorita"
+    "mostActiveCategory": "Categoría favorita",
+    "errorLoadingUser": "Error cargando usuario",
+    "daysTogether": "Días Juntos",
+  "navHome": "Inicio",
+  "navStats": "Estadísticas",
+  "navProfile": "Perfil",
+  "noCoupleId": "ID de la pareja no encontrado"
 }
